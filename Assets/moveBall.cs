@@ -63,9 +63,26 @@ public class moveBall : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (other.gameObject.name == "rampg")
+        if (other.gameObject.name == "rampbottom")
         {
             staticVars.yVel = 2;
+        }
+
+        if (other.gameObject.name == "ramptop")
+        {
+            staticVars.yVel = 0;
+        }
+
+        if (other.gameObject.name == "RampcolliderL")
+        {
+            
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.name == "RampcolliderR")
+        {
+            
+            Destroy(gameObject);
         }
     }
 
