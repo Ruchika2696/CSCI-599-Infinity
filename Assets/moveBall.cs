@@ -10,16 +10,17 @@ public class moveBall : MonoBehaviour
     public float horVel = 0;
     public int laneNum = 2;
     public string movementBlocked = "NO";
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameObject.GetComponent<Renderer>().material.color = Color.yellow;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(horVel, 0, 5);
+        GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 5);
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
         {
             horVel = -5;
@@ -39,9 +40,19 @@ public class moveBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "danger")
+        if (collision.gameObject.tag == "danger")
         {
             Destroy(gameObject);
+        }
+
+        if (collision.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color && (collision.gameObject.tag != "door"))
+        {
+            Destroy(collision.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            doorScript.zVelPlayer = 0;
         }
     }
 
@@ -50,6 +61,11 @@ public class moveBall : MonoBehaviour
         if (other.tag == "danger")
         {
             Destroy(gameObject);
+        }
+
+        if (other.gameObject.name == "rampg")
+        {
+            staticVars.yVel = 2;
         }
     }
 

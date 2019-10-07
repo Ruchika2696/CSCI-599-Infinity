@@ -6,6 +6,7 @@ TagManager:
   tags:
   - danger
   - player
+  - door
   layers:
   - Default
   - TransparentFX

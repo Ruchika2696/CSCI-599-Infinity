@@ -1,19 +1,23 @@
 ﻿<Properties StartupConfiguration="{135D3C2F-5681-53C3-CE25-0C5C10B61F55}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/moveBall.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/coinP.cs">
     <Files>
-      <File FileName="Assets/movecamera.cs" Line="8" Column="17" />
-      <File FileName="Assets/moveBall.cs" Line="44" Column="25" />
-      <File FileName="Assets/doorScript.cs" Line="10" Column="22" />
-      <File FileName="Assets/question.cs" Line="20" Column="8" />
-      <File FileName="Assets/namelabel.cs" Line="13" Column="6" />
+      <File FileName="Assets/movecamera.cs" Line="18" Column="2" />
+      <File FileName="Assets/moveBall.cs" />
+      <File FileName="Assets/doorScript.cs" />
+      <File FileName="Assets/question.cs" />
+      <File FileName="Assets/namelabel.cs" />
+      <File FileName="Assets/GM.cs" />
+      <File FileName="Assets/coinR.cs" />
+      <File FileName="Assets/coinG.cs" />
+      <File FileName="Assets/coinP.cs" Line="1" Column="1" />
+      <File FileName="Assets/staticVars.cs" Line="9" Column="12" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Game599" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True" />
-              <Node name="moveBall.cs" selected="True" />
+              <Node name="coinP.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -22,7 +26,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="67b930d6-c149-4ec3-84cf-0e89f75726ce" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="c321fc17-be1d-4ce3-bb69-bb4923548fba" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

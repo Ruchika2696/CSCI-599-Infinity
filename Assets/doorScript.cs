@@ -11,7 +11,7 @@ public class doorScript : MonoBehaviour
     public static int zVelPlayer = 1;
     void Start()
     {
-        gameObject.tag = "Untagged";
+        gameObject.tag = "door";
 
     }
 
@@ -40,6 +40,7 @@ public class doorScript : MonoBehaviour
 
         } else
         {
+            other.gameObject.GetComponent<Renderer>().material.color = gameObject.GetComponent<Renderer>().material.color;
             Debug.Log("right ans");
             Destroy(gameObject);
         }

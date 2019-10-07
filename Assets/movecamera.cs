@@ -7,12 +7,12 @@ public class movecamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		
-	}
+        
+    }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 4 * doorScript.zVelPlayer);
+        GetComponent<Rigidbody>().velocity = new Vector3(0, staticVars.yVel, 4 * doorScript.zVelPlayer);
     }
 }

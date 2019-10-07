@@ -62,13 +62,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\coinG.cs" />
+    <Compile Include="Assets\coinP.cs" />
+    <Compile Include="Assets\coinR.cs" />
     <Compile Include="Assets\doorScript.cs" />
+    <Compile Include="Assets\GM.cs" />
     <Compile Include="Assets\moveBall.cs" />
     <Compile Include="Assets\movecamera.cs" />
     <Compile Include="Assets\namelabel.cs" />
     <Compile Include="Assets\question.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\trackMove.cs" />
+    <Compile Include="Assets\staticVars.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
