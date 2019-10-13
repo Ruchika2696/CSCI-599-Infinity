@@ -23,25 +23,9 @@ public class doorScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        int num = question.num;
-        string ans = question.dict[num].getAns();
-        Debug.Log("ans = " + ans);
-        string doorText = gameObject.GetComponentInChildren<Text>().text;
-        //string doorText = gameObject.Find("Canvas/Button").GetComponentInChildren<Text>().text;
-        if (other.tag == "player" && !doorText.Equals(ans))
-        {
-            // wrong ans
-            Debug.Log("DoorText = " + doorText + " , Answer =  " + ans);
-            Debug.Log("Wrong answer");
-            gameObject.tag = "danger";
-            zVelPlayer = 0;
-            //GetComponent<Rigidbody>().velocity = 0;
-
-
-        } else
+        if (other.tag == "player")
         {
             other.gameObject.GetComponent<Renderer>().material.color = gameObject.GetComponent<Renderer>().material.color;
-            Debug.Log("right ans");
             Destroy(gameObject);
         }
     }
