@@ -66,6 +66,7 @@
     <Compile Include="Assets\coinP.cs" />
     <Compile Include="Assets\coinR.cs" />
     <Compile Include="Assets\doorScript.cs" />
+    <Compile Include="Assets\effects.cs" />
     <Compile Include="Assets\GM.cs" />
     <Compile Include="Assets\moveBall.cs" />
     <Compile Include="Assets\movecamera.cs" />

@@ -10,6 +10,8 @@ public class moveBall : MonoBehaviour
     public float horVel = 0;
     public int laneNum = 2;
     public string movementBlocked = "NO";
+
+    public Transform gameOverAnimationObject;
     
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,8 @@ public class moveBall : MonoBehaviour
         {
             Destroy(gameObject);
             doorScript.zVelPlayer = 0;
+            Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+            staticVars.gameStatus = "GameOver";
         }
     }
 
