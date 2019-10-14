@@ -7,7 +7,8 @@ public class coinP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+        gameObject.GetComponent<Renderer>().material = yellowMat;
     }
 
     // Update is called once per frame
