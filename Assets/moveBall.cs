@@ -16,7 +16,9 @@ public class moveBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        //gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+        gameObject.GetComponent<Renderer>().material = yellowMat;
     }
 
     // Update is called once per frame
@@ -37,6 +39,26 @@ public class moveBall : MonoBehaviour
             StartCoroutine(stopSlide());
             laneNum += 1;
             movementBlocked = "YES";
+        }
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.position.x > (Screen.width / 2))
+            {
+                //              GoRight();
+                horVel = 5;
+                StartCoroutine(stopSlide());
+                laneNum += 1;
+                movementBlocked = "YES";
+            }
+            if (touch.position.x < (Screen.width / 2))
+            {
+                //             GoLeft();
+                horVel = -5;
+                StartCoroutine(stopSlide());
+                laneNum -= 1;
+                movementBlocked = "YES";
+            }
         }
     }
 
