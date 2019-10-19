@@ -13,6 +13,8 @@ public class TrackManager : MonoBehaviour
     private List<GameObject> activeTracks;
     private int noOfTracksSpawnedInitial = 15;
     private int noOfTracksSpawned = 15;
+    private int noOfTracksSpawnedPlainCubePref = 5;
+    private int noOfTracksSpawnedCubeGRPPrefMid = 4;
 
     private int lastPrefabIndex = 0;
 
@@ -34,11 +36,35 @@ public class TrackManager : MonoBehaviour
             if (playerTransform.position.z - safeZone > (spawnZ - tracksOnScreen * trackLength))
             {
                 int prefabIndex = RandomPrefabIndex();
-                for (int i = 0; i < noOfTracksSpawned; i++)
+                
+                if(prefabIndex == 3)
                 {
+                    // prefab for basic Door 
+
+                    // spawn CubeGRPPref before the basic Door prefab
+                    for(int i=0; i<noOfTracksSpawnedCubeGRPPrefMid; i++)
+                        SpawnTrack(1);
+
+                    // before door spawn plain cubePref to allow to move player for choosing door
+                    for (int i = 0; i < 3; i++)
+                        SpawnTrack(0);
+
                     SpawnTrack(prefabIndex);
                 }
-
+                else
+                {
+                    for (int i = 0; i < noOfTracksSpawned; i++)
+                    {
+                        SpawnTrack(prefabIndex);
+                    }
+                }
+                if(prefabIndex != 0)
+                {
+                    // if the prefab just spawned is not a PlainCubePref
+                    // spawn a few instances of PlainCubePref
+                    for(int i=0; i< noOfTracksSpawnedPlainCubePref; i++)
+                        SpawnTrack(0);
+                }
                 DeleteTrack();
                 //            coin_gen.SpawnCoins(new Vector3(2.5f, -4.5f, -24.01f));
             }

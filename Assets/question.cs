@@ -2,44 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class question : MonoBehaviour
 {
     //public Question q;
-    public static IDictionary<int, Question> dict = new Dictionary<int, Question>();
+    
     public static int num;
+
+    public static IDictionary<int, Material> color = new Dictionary<int, Material>();
+    public static IDictionary<int, Material> copyColor;
+    
+    public System.Random rand = new System.Random();
     // Start is called before the first frame update
     void Start()
-    {
-        dict.Add(1, new Question("5 x 2", new List<string>() {"10" , "12" , "15"}, "10"));
-        dict.Add(2, new Question("3 x 4", new List<string>() { "10", "12", "15" }, "12"));
-        dict.Add(3, new Question("7 x 6", new List<string>() { "40", "42", "36" }, "42"));
-        dict.Add(4, new Question("1 x 0", new List<string>() { "10", "1", "0" }, "0"));
-        dict.Add(5, new Question("4 x 8", new List<string>() { "32", "22", "34" }, "32"));
+    {   
+        
         num = Random.Range(1, 5);
         //num = 1;
-        TextMeshProUGUI textmeshPro = GameObject.Find("Canvas/Text1").GetComponent<TextMeshProUGUI>();
+        Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+        Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
+        Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
 
-        //q = new Question(dict[num].getQuestion, dict[num].get);
-        textmeshPro.text = dict[num].getQuestion() + " = ? ";
-        //doorScript ds = new doorScript(dict[num]);
-        List<string> optionsCopy = dict[num].getOptions();
+        color.Add(1, redMat);
+        color.Add(2, yellowMat);
+        color.Add(3, greenMat);
 
-        int option = Random.Range(0, 3);
-        GameObject.Find("door/Canvas/Button").GetComponentInChildren<Text>().text = optionsCopy[option];
+        copyColor = new Dictionary<int, Material>(color);
+        //int option = rand.Next(1, copyColor.Count);
+        //        C =  colorCopy.ElementAt(option).Value; 
+        var cubeRenderer = GameObject.Find("door").GetComponent<Renderer>();
+        var option = copyColor.ToList()[rand.Next(copyColor.Count)];
+        cubeRenderer.material= option.Value;
+        copyColor.Remove(option.Key);
+        //var k = dict.Keys.ToList()[rand.Next(dict.Count)];
+        option = copyColor.ToList()[rand.Next(copyColor.Count)];
+        //option = rand.Next(0, copyColor.Count);
+        //        C =  colorCopy.ElementAt(option).Value; 
+        var cubeRenderer2 = GameObject.Find("door1").GetComponent<Renderer>();
+        cubeRenderer2.material= option.Value;
+        copyColor.Remove(option.Key);
 
-        optionsCopy.Remove(optionsCopy[option]);
-
-        option = Random.Range(0, 2);
-        GameObject.Find("door1/Canvas/Button").GetComponentInChildren<Text>().text = optionsCopy[option];
-
-        optionsCopy.Remove(optionsCopy[option]);
-
-
-        
-
-        GameObject.Find("door2/Canvas/Button").GetComponentInChildren<Text>().text = optionsCopy[0];
-
+        //option = rand.Next(0, copyColor.Count);
+        //        C =  colorCopy.ElementAt(option).Value; 
+        option = copyColor.ToList()[rand.Next(copyColor.Count)];
+        var cubeRenderer3 = GameObject.Find("door2").GetComponent<Renderer>();
+        cubeRenderer3.material= option.Value;
+        copyColor.Remove(option.Key);
 
 
     }
@@ -47,13 +56,13 @@ public class question : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 4);
+        if(GetComponent<Rigidbody>() != null)
+        {
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 4);
+        }
 	}
 
-    public Question getQuestion()
-    {
-        return dict[num];
-    }
+    
 }
 
 public class Question

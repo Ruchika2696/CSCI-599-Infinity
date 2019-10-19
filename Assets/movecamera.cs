@@ -13,6 +13,6 @@ public class movecamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(0, staticVars.yVel, 4 * doorScript.zVelPlayer);
+        GetComponent<Rigidbody>().velocity = new Vector3(0, staticVars.yVel, 7 * doorScript.zVelPlayer);
     }
 }

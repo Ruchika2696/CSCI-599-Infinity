@@ -8,6 +8,7 @@ public class doorScript : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject NameLabel;
+    public GameObject[] otherDoors;
     public static int zVelPlayer = 1;
     void Start()
     {
@@ -27,6 +28,12 @@ public class doorScript : MonoBehaviour
         {
             other.gameObject.GetComponent<Renderer>().material.color = gameObject.GetComponent<Renderer>().material.color;
             Destroy(gameObject);
+            otherDoors = GameObject.FindGameObjectsWithTag("door");
+            foreach (GameObject g in otherDoors)
+            {
+                Destroy(g);
+            }
+            
         }
     }
     

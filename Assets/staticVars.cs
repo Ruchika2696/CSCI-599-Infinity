@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
 
 public class staticVars : MonoBehaviour
 {
@@ -11,9 +12,14 @@ public class staticVars : MonoBehaviour
     public static float gameTime = 0;
     public static float loadingTime = 0;
     public static string gameStatus = "";
+    public static int redCount, yellowCount, greenCount, score;
+    GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
     void Start()
     {
-        
+        redCountPos = GameObject.Find("redCount");
+        yellowCountPos = GameObject.Find("yellowCount");
+        greenCountPos = GameObject.Find("greenCount");
+        scorePos = GameObject.Find("Score");
     }
 
     // Update is called once per frame
@@ -23,11 +29,19 @@ public class staticVars : MonoBehaviour
         if(gameStatus == "GameOver")
         {
             loadingTime += Time.deltaTime;
+            if (loadingTime > 2)
+            {
+                gameStatus = "";
+                loadingTime = 0;
+                SceneManager.LoadScene(0);
+            }
         }
 
-        if (loadingTime > 2)
-        {
-            SceneManager.LoadScene("GameResult");
-        }
+        
+
+        redCountPos.GetComponent<TextMeshProUGUI>().text = redCount.ToString();
+        yellowCountPos.GetComponent<TextMeshProUGUI>().text = yellowCount.ToString();
+        greenCountPos.GetComponent<TextMeshProUGUI>().text = greenCount.ToString();
+        scorePos.GetComponent<TextMeshProUGUI>().text = score.ToString();
     }
 }

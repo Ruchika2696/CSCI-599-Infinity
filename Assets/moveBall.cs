@@ -19,12 +19,17 @@ public class moveBall : MonoBehaviour
         //gameObject.GetComponent<Renderer>().material.color = Color.yellow;
         Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
         gameObject.GetComponent<Renderer>().material = yellowMat;
+        staticVars.redCount = 0;
+        staticVars.greenCount = 0;
+        staticVars.yellowCount = 0;
+        staticVars.score = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 5);
+        staticVars.score++;
+        GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 7 * doorScript.zVelPlayer);
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
         {
             horVel = -5;
@@ -62,31 +67,64 @@ public class moveBall : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "danger")
-        {
-            Destroy(gameObject);
-        }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "danger")
+    //    {
+    //        Destroy(gameObject);
+    //    }
 
-        if (collision.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color && (collision.gameObject.tag != "door"))
-        {
-            Destroy(collision.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            doorScript.zVelPlayer = 0;
-            Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
-            staticVars.gameStatus = "GameOver";
-        }
-    }
+    //    if (collision.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color && (collision.gameObject.tag != "door"))
+    //    {
+    //        Destroy(collision.gameObject);
+    //        Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+    //        Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
+    //        Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
+    //        if (collision.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
+    //            staticVars.yellowCount++;
+    //        else if (collision.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
+    //            staticVars.greenCount++;
+    //        else if(collision.gameObject.GetComponent<Renderer>().material.color == redMat.color)
+    //            staticVars.redCount++;
+
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //        doorScript.zVelPlayer = 0;
+    //        Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+    //        staticVars.gameStatus = "GameOver";
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "danger")
         {
+            Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             Destroy(gameObject);
+        }
+
+        else if (other.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color && (other.gameObject.tag != "door"))
+        {
+            Destroy(other.gameObject);
+            Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+            Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
+            Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
+            if (other.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
+                staticVars.yellowCount++;
+            else if (other.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
+                staticVars.greenCount++;
+            else if (other.gameObject.GetComponent<Renderer>().material.color == redMat.color)
+                staticVars.redCount++;
+
+        }
+        else if (other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color && (other.gameObject.tag != "door"))
+        {
+            Destroy(gameObject);
+            doorScript.zVelPlayer = 0;
+            Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+            staticVars.gameStatus = "GameOver";
         }
 
         if (other.gameObject.name == "rampbottom")
