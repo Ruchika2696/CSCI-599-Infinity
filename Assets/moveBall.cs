@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +30,7 @@ public class moveBall : MonoBehaviour
     {
         staticVars.score++;
         GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 7 * doorScript.zVelPlayer);
+
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
         {
             horVel = -5;
@@ -67,35 +68,13 @@ public class moveBall : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "danger")
-    //    {
-    //        Destroy(gameObject);
-    //    }
-
-    //    if (collision.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color && (collision.gameObject.tag != "door"))
-    //    {
-    //        Destroy(collision.gameObject);
-    //        Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
-    //        Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
-    //        Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
-    //        if (collision.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
-    //            staticVars.yellowCount++;
-    //        else if (collision.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
-    //            staticVars.greenCount++;
-    //        else if(collision.gameObject.GetComponent<Renderer>().material.color == redMat.color)
-    //            staticVars.redCount++;
-
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //        doorScript.zVelPlayer = 0;
-    //        Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
-    //        staticVars.gameStatus = "GameOver";
-    //    }
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "danger")
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -126,29 +105,36 @@ public class moveBall : MonoBehaviour
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
         }
-
-        if (other.gameObject.name == "rampbottom")
-        {
-            staticVars.yVel = 2;
-        }
-
-        if (other.gameObject.name == "ramptop")
-        {
-            staticVars.yVel = 0;
-        }
-
-        if (other.gameObject.name == "RampcolliderL")
-        {
-            
-            Destroy(gameObject);
-        }
-
-        if (other.gameObject.name == "RampcolliderR")
-        {
-            
-            Destroy(gameObject);
-        }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "danger")
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    if (other.gameObject.name == "rampbottom")
+    //    {
+    //        staticVars.yVel = 2;
+    //    }
+
+    //    if (other.gameObject.name == "ramptop")
+    //    {
+    //        staticVars.yVel = 0;
+    //    }
+
+    //    if (other.gameObject.name == "RampcolliderL")
+    //    {
+            
+    //        Destroy(gameObject);
+    //    }
+
+    //    if (other.gameObject.name == "RampcolliderR")
+    //    {
+            
+    //        Destroy(gameObject);
+    //    }
+    //}
 
     IEnumerator stopSlide()
     {
@@ -156,6 +142,4 @@ public class moveBall : MonoBehaviour
         horVel = 0;
         movementBlocked = "NO";
     }
-
-    
 }
