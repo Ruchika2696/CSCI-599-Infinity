@@ -7,6 +7,10 @@ public class GM : MonoBehaviour
     // Start is called before the first frame update
     public Transform bbNoObst;
 
+    // set this variable to true on trigger/collision
+    // with magnet gameObject
+    public static bool acquireMagnet;
+
     void Start()
     {
         //Instantiate(bbNoObst, new Vector3(0.5f,0f,27.07f), bbNoObst.rotation);

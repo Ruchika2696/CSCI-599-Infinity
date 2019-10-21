@@ -12,6 +12,8 @@ public class moveBall : MonoBehaviour
     public string movementBlocked = "NO";
 
     public Transform gameOverAnimationObject;
+
+    SimpleTimer st;
     
     // Start is called before the first frame update
     void Start()
@@ -78,14 +80,33 @@ public class moveBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Magnet"))
+        {
+            // when the player collides with a magnet. acquires magnet power-up
+            Debug.Log("triggered on magnet contact");
+
+            st = new SimpleTimer("MagnetTimer", 15.0f);
+            StartCoroutine(st.MagnetPowerUp());
+            // if collider is a magnet
+            GM.acquireMagnet = true;
+            //gameObject.tag = "MagnetPlayer";
+
+            // destroy the magnet
+            Destroy(other.gameObject);
+        }
+
         if (other.tag == "danger")
         {
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             Destroy(gameObject);
         }
 
-        else if (other.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color && (other.gameObject.tag != "door"))
+        else if (GM.acquireMagnet == false &&
+            other.gameObject.GetComponent<Renderer>() != null &&
+            other.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color &&
+            (other.gameObject.tag != "door"))
         {
+            //Debug.Log("first else if");
             Destroy(other.gameObject);
             Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
             Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
@@ -98,12 +119,32 @@ public class moveBall : MonoBehaviour
                 staticVars.redCount++;
 
         }
-        else if (other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color && (other.gameObject.tag != "door"))
+        else if (GM.acquireMagnet == false &&
+            other.gameObject.GetComponent<Renderer>() != null &&
+            other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color &&
+            (other.gameObject.tag != "door"))
         {
+            //Debug.Log("second else if");
             Destroy(gameObject);
             doorScript.zVelPlayer = 0;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
+        }
+
+        if (GM.acquireMagnet == true && other.tag == "Coin")
+        {
+            // when the player has magnet, on trigger, acquire coin
+            // irrespective of coin and ball color
+            Destroy(other.gameObject);
+            Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+            Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
+            Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
+            if (other.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
+                staticVars.yellowCount++;
+            else if (other.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
+                staticVars.greenCount++;
+            else if (other.gameObject.GetComponent<Renderer>().material.color == redMat.color)
+                staticVars.redCount++;
         }
     }
 
