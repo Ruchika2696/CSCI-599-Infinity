@@ -48,8 +48,7 @@ public class question : MonoBehaviour
         option = copyColor.ToList()[rand.Next(copyColor.Count)];
         var cubeRenderer3 = GameObject.Find("door2").GetComponent<Renderer>();
         cubeRenderer3.material= option.Value;
-        copyColor.Remove(option.Key);
-
+        copyColor.Remove(option.Key);   
 
     }
 
