@@ -32,7 +32,10 @@ Vector2 currentSwipe;
     // Update is called once per frame
     void Update()
     {
+       // Debug.Log("HEEEEEE");
         staticVars.score++;
+       // Debug.Log(staticVars.score);
+        Debug.Log(staticVars.yVel);
         GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 7 * doorScript.zVelPlayer);
 		
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
@@ -174,6 +177,8 @@ Vector2 currentSwipe;
         if (other.tag == "danger")
         {
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+            doorScript.zVelPlayer = 0;
+            staticVars.gameStatus = "GameOver";
             Destroy(gameObject);
         }
 
@@ -198,8 +203,6 @@ Vector2 currentSwipe;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
         }
-
-		
     }
 
 	

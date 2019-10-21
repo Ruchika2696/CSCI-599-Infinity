@@ -33,11 +33,11 @@ public class staticVars : MonoBehaviour
             {
                 gameStatus = "";
                 loadingTime = 0;
-                SceneManager.LoadScene(0);
+                // SceneManager.LoadScene(0);
+                doorScript.zVelPlayer = 1;
+                Application.LoadLevel(0);
             }
         }
-
-        
 
         redCountPos.GetComponent<TextMeshProUGUI>().text = redCount.ToString();
         yellowCountPos.GetComponent<TextMeshProUGUI>().text = yellowCount.ToString();
