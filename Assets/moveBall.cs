@@ -6,13 +6,16 @@ public class moveBall : MonoBehaviour
 {
     public KeyCode moveLeft;
     public KeyCode moveRight;
-
+	public KeyCode space;
     public float horVel = 0;
     public int laneNum = 2;
     public string movementBlocked = "NO";
-
     public Transform gameOverAnimationObject;
-    
+	private bool isGrounded;
+    private bool groundContact;
+	Vector2 firstPressPos;
+	Vector2 secondPressPos;
+Vector2 currentSwipe;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,7 @@ public class moveBall : MonoBehaviour
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
         staticVars.score = 0;
+		
     }
 
     // Update is called once per frame
@@ -30,7 +34,7 @@ public class moveBall : MonoBehaviour
     {
         staticVars.score++;
         GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 7 * doorScript.zVelPlayer);
-
+		
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
         {
             horVel = -5;
@@ -46,7 +50,8 @@ public class moveBall : MonoBehaviour
             laneNum += 1;
             movementBlocked = "YES";
         }
-        if (Input.touchCount > 0)
+		/*
+        if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
             if (touch.position.x > (Screen.width / 2))
@@ -66,8 +71,94 @@ public class moveBall : MonoBehaviour
                 movementBlocked = "YES";
             }
         }
+
+		if (Input.touchCount == 2)
+		{
+			StartCoroutine(Jump());;
+		}
+		*/
+
+		
+		if (Input.GetKeyDown("space"))
+        {	
+			groundContact = true;
+			 StartCoroutine(Jump());;
+            
+        }
+
+		if (Input.touches.Length>0)
+		{
+			Touch t = Input.GetTouch(0);
+			if(t.phase == TouchPhase.Began)
+         {
+              //save began touch 2d point
+             firstPressPos = new Vector2(t.position.x,t.position.y);
+         }
+		 if(t.phase == TouchPhase.Ended)
+         {
+              //save ended touch 2d point
+             secondPressPos = new Vector2(t.position.x,t.position.y);
+                           
+              //create vector from the two points
+             currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+               
+             //normalize the 2d vector
+             currentSwipe.Normalize();
+
+			  //swipe upwards
+             if(currentSwipe.y > 0  && currentSwipe.x > -0.5f  && currentSwipe.x < 0.5f)
+             {
+                 groundContact = true;
+				 StartCoroutine(Jump());;
+             }
+
+			 //swipe down
+             if(currentSwipe.y < 0  && currentSwipe.x >  -0.5f && currentSwipe.x < 0.5f)
+             {
+                 
+             }
+             //swipe left
+             if(currentSwipe.x < 0  && currentSwipe.y > -0.5f  && currentSwipe.y < 0.5f)
+             {
+                 //             GoLeft();
+				 if( (laneNum>1) && (movementBlocked == "NO")){
+				 
+					horVel = -5;
+					StartCoroutine(stopSlide());
+					laneNum -= 1;
+					movementBlocked = "YES";
+				 }
+                
+             }
+             //swipe right
+             if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
+             {	
+				if((laneNum < 3) && (movementBlocked == "NO")){
+					horVel = 5;
+					StartCoroutine(stopSlide());
+					laneNum += 1;
+					movementBlocked = "YES";
+				}
+                 
+             }
+		}
+		}
     }
 
+	IEnumerator Jump()
+	{
+
+	isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
+			if(isGrounded && groundContact){
+				Debug.Log("hit space");
+				GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
+				groundContact = false;
+				yield return new WaitForSeconds(.6f);
+				GetComponent<Rigidbody>().AddForce(Vector3.down * 100, ForceMode.Impulse);
+				groundContact = true;
+			}
+	
+	}
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "danger")
@@ -75,6 +166,8 @@ public class moveBall : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+	
 
     private void OnTriggerEnter(Collider other)
     {
@@ -105,7 +198,11 @@ public class moveBall : MonoBehaviour
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
         }
+
+		
     }
+
+	
 
     //private void OnTriggerEnter(Collider other)
     //{
@@ -142,4 +239,5 @@ public class moveBall : MonoBehaviour
         horVel = 0;
         movementBlocked = "NO";
     }
+
 }
