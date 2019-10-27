@@ -35,7 +35,6 @@ public class CoinActionsMagnet : MonoBehaviour
             {
                 magnetTrans = GameObject.FindGameObjectWithTag("player").transform;
                 Vector3 directionMagnet = magnetTrans.position - trans.position;
-                //Debug.Log("Direction =" + directionMagnet);
                 
                 // distance between the player(magnet) and coin
                 float distance = Vector3.Distance(magnetTrans.position, trans.position);

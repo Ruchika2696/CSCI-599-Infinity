@@ -166,6 +166,7 @@ public class moveBall : MonoBehaviour
 			}
 	
 	}
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "danger")
@@ -177,20 +178,17 @@ public class moveBall : MonoBehaviour
 		}
     }
 
-	
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Magnet"))
         {
-            // when the player collides with a magnet. acquires magnet power-up
+            // when the player collides with a magnet it acquires magnet power-up
             Debug.Log("triggered on magnet contact");
 
             st = new SimpleTimer("MagnetTimer", 15.0f);
             StartCoroutine(st.MagnetPowerUp());
             // if collider is a magnet
             GM.acquireMagnet = true;
-            //gameObject.tag = "MagnetPlayer";
 
             // destroy the magnet
             Destroy(other.gameObject);
