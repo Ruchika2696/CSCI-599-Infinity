@@ -7,10 +7,11 @@ public class CoinActionsMagnet : MonoBehaviour
     // this script controls coin's movements towards the player
     // when the player acquires the magnet power-up
 
-    public float magnetStrength = 3f;
+    public float magnetStrength = 1f;
     public bool looseMagnet = true;
     // magnetic force strength based on distance of coin from magnet
-    public float distanceStrength = 10f;
+    public float distanceStrength = 5f;
+    public float magnetTriggerDistance = 15.0f;
 
     private Transform trans;
     private Rigidbody thisRd;
@@ -35,19 +36,20 @@ public class CoinActionsMagnet : MonoBehaviour
             {
                 magnetTrans = GameObject.FindGameObjectWithTag("player").transform;
                 Vector3 directionMagnet = magnetTrans.position - trans.position;
-                
+
                 // distance between the player(magnet) and coin
                 float distance = Vector3.Distance(magnetTrans.position, trans.position);
-
-                // magnet's strength changes based on the distance of coin to player(magnet)
-                float magnetDistanceStrength = (distanceStrength / distance) * magnetStrength;
-                Vector3 f = magnetDistanceStrength * directionMagnet;
-                if (f != new Vector3(0, 0, 0))
+                if(distance <= magnetTriggerDistance)
                 {
-                    thisRd.AddForce(f, ForceMode.Force);
+                    // magnet's strength changes based on the distance of coin to player(magnet)
+                    float magnetDistanceStrength = (distanceStrength / distance) * magnetStrength;
+                    Vector3 f = magnetDistanceStrength * directionMagnet;
+                    if (f != new Vector3(0, 0, 0))
+                    {
+                        thisRd.AddForce(f, ForceMode.Force);
+                    }
                 }
-
-                if(directionMagnet.z > 0)
+                if (directionMagnet.z > 0)
                 {
                     magnetInZone = false;
                 }

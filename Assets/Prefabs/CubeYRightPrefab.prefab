@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 1119215514545146037}
   - component: {fileID: 3013840332913731140}
   - component: {fileID: 5450071382952420}
+  - component: {fileID: 4161500608946782875}
+  - component: {fileID: 7191267020829115204}
   m_Layer: 0
   m_Name: coinP
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +93,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
+  m_Radius: 2
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
@@ -119,6 +121,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fc5dbdd6c3a433daf892e019a6ff07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4161500608946782875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739652020707064788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6300c5b55159a48028842099819d6243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnetStrength: 3
+  looseMagnet: 1
+  distanceStrength: 5
+  magnetInZone: 0
+--- !u!54 &7191267020829115204
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739652020707064788}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4130361886288085393
 GameObject:
   m_ObjectHideFlags: 0
