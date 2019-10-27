@@ -23,10 +23,12 @@ public class question : MonoBehaviour
         Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
         Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
         Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
-
-        color.Add(1, redMat);
+		if(color.Count()!=3){
+			color.Add(1, redMat);
         color.Add(2, yellowMat);
         color.Add(3, greenMat);
+		}
+        
 
         copyColor = new Dictionary<int, Material>(color);
         //int option = rand.Next(1, copyColor.Count);
