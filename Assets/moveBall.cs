@@ -36,10 +36,10 @@ public class moveBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // Debug.Log("HEEEEEE");
         staticVars.score++;
        // Debug.Log(staticVars.score);
-        Debug.Log(staticVars.yVel);
+
+        //Debug.Log(staticVars.yVel);
         GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 10 * doorScript.zVelPlayer);
 		
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
