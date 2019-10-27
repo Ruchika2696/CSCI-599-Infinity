@@ -48,7 +48,7 @@ public class TrackManager : MonoBehaviour
 //                SpawnTrack();
 //                SpawnTrack(0);
 
-                if(timer > 0.5f)
+                if(timer > 0.3f)
                 {
                     SpawnTrack(1);
                         for(int i=0; i<1; i++)
@@ -56,7 +56,7 @@ public class TrackManager : MonoBehaviour
                     timer = 0.0f;
                 }
                 timer += Time.deltaTime;
-                Debug.Log(timer);
+                //Debug.Log(timer);
 
                 int prefabIndex = RandomPrefabIndex();
 

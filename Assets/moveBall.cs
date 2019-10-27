@@ -40,7 +40,7 @@ public class moveBall : MonoBehaviour
         staticVars.score++;
        // Debug.Log(staticVars.score);
         Debug.Log(staticVars.yVel);
-        GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 7 * doorScript.zVelPlayer);
+        GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 10 * doorScript.zVelPlayer);
 		
         if(Input.GetKeyDown(moveLeft) && (laneNum>1) && (movementBlocked == "NO"))
         {
@@ -170,8 +170,11 @@ public class moveBall : MonoBehaviour
     {
         if (collision.gameObject.tag == "danger")
         {
-            Destroy(gameObject);
-        }
+			Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+			doorScript.zVelPlayer = 0;
+			staticVars.gameStatus = "GameOver";
+			Destroy(gameObject);
+		}
     }
 
 	
