@@ -1,0 +1,16 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <ScalaCodeStyleSettings>
+      <option name="alwaysUsedImports">
+        <array>
+          <option value="org.apache.spark.rdd" />
+          <option value="org.apache.spark.rdd.DoubleRDDFunctions" />
+          <option value="org.apache.spark.sql.functions._" />
+          <option value="org.json4s.jackson.Serialization._" />
+          <option value="scala.collection.immutable" />
+          <option value="scala.collection.immutable._" />
+        </array>
+      </option>
+    </ScalaCodeStyleSettings>
+  </code_scheme>
+</component>
