@@ -31,7 +31,7 @@ public class TrackManager : MonoBehaviour
 
 
         playerTransform = GameObject.FindGameObjectWithTag("player").transform;
-        for(int i=0; i<1; i++)
+        for(int i=0; i<3; i++)
               SpawnTrack(0);
 //        for(int i=0; i<noOfTracksSpawned; i++)
 //            SpawnTrack();
