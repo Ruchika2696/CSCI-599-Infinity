@@ -155,15 +155,12 @@ public class moveBall : MonoBehaviour
 	IEnumerator Jump()
 	{
 
-	//isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
 			if(groundContact){
 				Debug.Log("hit space");
 				Vector3 up = new Vector3(0,3.5f,0);
-				//GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
 				GetComponent<Rigidbody>().position += up;
 				groundContact = false;
 				yield return new WaitForSeconds(.6f);
-				//GetComponent<Rigidbody>().AddForce(Vector3.down * 100, ForceMode.Impulse);
 				GetComponent<Rigidbody>().position -= up;
 				groundContact = true;
 			}
