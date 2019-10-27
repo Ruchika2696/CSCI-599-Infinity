@@ -157,11 +157,11 @@ public class moveBall : MonoBehaviour
 
 			if(groundContact){
 				Debug.Log("hit space");
-				Vector3 up = new Vector3(0,3.5f,0);
-				GetComponent<Rigidbody>().position += up;
+				Vector3 up = new Vector3(0,1.5f,0);
+				gameObject.transform.position += up;
 				groundContact = false;
 				yield return new WaitForSeconds(.6f);
-				GetComponent<Rigidbody>().position -= up;
+				gameObject.transform.position -= up;
 				groundContact = true;
 			}
 	
