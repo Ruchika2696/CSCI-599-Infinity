@@ -29,6 +29,7 @@ public class moveBall : MonoBehaviour
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
         staticVars.score = 0;
+		groundContact = true;
 		
     }
 
@@ -87,7 +88,7 @@ public class moveBall : MonoBehaviour
 		
 		if (Input.GetKeyDown("space"))
         {	
-			groundContact = true;
+			
 			 StartCoroutine(Jump());
             
         }
@@ -154,13 +155,16 @@ public class moveBall : MonoBehaviour
 	IEnumerator Jump()
 	{
 
-	isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
-			if(isGrounded && groundContact){
+	//isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
+			if(groundContact){
 				Debug.Log("hit space");
-				GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
+				Vector3 up = new Vector3(0,3.5f,0);
+				//GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
+				GetComponent<Rigidbody>().position += up;
 				groundContact = false;
 				yield return new WaitForSeconds(.6f);
-				GetComponent<Rigidbody>().AddForce(Vector3.down * 100, ForceMode.Impulse);
+				//GetComponent<Rigidbody>().AddForce(Vector3.down * 100, ForceMode.Impulse);
+				GetComponent<Rigidbody>().position -= up;
 				groundContact = true;
 			}
 	
