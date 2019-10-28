@@ -10,7 +10,10 @@ public class TrackManager : MonoBehaviour
     private Transform playerTransform;
     private float safeZone = 18f;
     private int tracksOnScreen = 100;
-    public float timer = 0.0f;
+    public float doortimer = 0.0f;
+    public float magnettimer = 0.0f;
+    public float shieldtimer = 0.0f;
+
     private int lastPrefabIndex = 0;
 
     public ObjectPooler[] theObjectPools;
@@ -32,18 +35,40 @@ public class TrackManager : MonoBehaviour
         {
             if (playerTransform.position.z - safeZone > (spawnZ - tracksOnScreen * trackLength))
             {
-                if(timer > 0.2f) //generate door prefab for every 0.3f
+                if(doortimer > 0.2f) //generate door prefab for every 0.3f
                 {
                     SpawnTrack(1);
                         for(int i=0; i<2; i++)
                             SpawnTrack(0);
-                    timer = 0.0f;
+                    doortimer = 0.0f;
                 }
-                timer += Time.deltaTime;
-        
+                doortimer += Time.deltaTime;
+
+                if (magnettimer > 0.7f) //generate magnet prefab for every 0.3f
+                {
+                   
+                    int magnetPrefabIndex = FindRandomPrefabIndexForMagnet();
+                    SpawnTrack(magnetPrefabIndex);
+                    for (int i = 0; i < 2; i++)
+                        SpawnTrack(0);
+                    magnettimer = 0.0f;
+                }
+                magnettimer += Time.deltaTime;
+
+                if (shieldtimer > 0.8f) //generate shield prefab for every 0.3f
+                {
+                    int shieldPrefabIndex = FindRandomPrefabIndexForShield();
+                    SpawnTrack(shieldPrefabIndex);
+                    for (int i = 0; i < 2; i++)
+                        SpawnTrack(0);
+                    shieldtimer = 0.0f;
+
+                }
+                shieldtimer += Time.deltaTime;
+
                 int prefabIndex = RandomPrefabIndex();
 
-                if(prefabIndex != 1) 
+                if(prefabIndex != 1 && prefabIndex <20) 
                 {
 
                     for(int i=0; i<2; i++)
@@ -57,7 +82,7 @@ public class TrackManager : MonoBehaviour
                             SpawnTrack(prefabIndex);
                         }
                     }
-                    else if(prefabIndex >= 10 ){ //All coins
+                    else if(prefabIndex >= 10 && prefabIndex <20 ){ //All coins
                         for(int i=0; i<5; i++)
                         {
                             SpawnTrack(prefabIndex);
@@ -111,5 +136,17 @@ public class TrackManager : MonoBehaviour
 
         lastPrefabIndex = randomIndex;
         return randomIndex;
+    }
+
+    private int FindRandomPrefabIndexForMagnet()
+    {
+        int formagnetindex = Random.Range(23, 26);
+        return formagnetindex;
+    }
+
+    private int FindRandomPrefabIndexForShield()
+    {
+        int forshieldindex = Random.Range(20, 23);
+        return forshieldindex;
     }
 }
