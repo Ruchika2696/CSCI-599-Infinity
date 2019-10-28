@@ -14,22 +14,35 @@ public class staticVars : MonoBehaviour
     public static string gameStatus = "";
     public static int redCount, yellowCount, greenCount, score;
     GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
+    GameObject timer;
+    public DeathMenu deathScreen;
     void Start()
     {
         redCountPos = GameObject.Find("redCount");
         yellowCountPos = GameObject.Find("yellowCount");
         greenCountPos = GameObject.Find("greenCount");
         scorePos = GameObject.Find("Score");
+        /*  if(deathScreen.gameObject.activeSelf == true)
+          {
+              timer = GameObject.Find("Timer");
+          } */
     }
 
     // Update is called once per frame
     void Update()
     {
         gameTime += Time.deltaTime;
-        if(gameStatus == "GameOver")
+
+        if (gameStatus == "GameOver")
         {
+         /*   timer = GameObject.Find("Timer");
+            int cur = (int)(10 - loadingTime);
+            if (cur % 2 == 1)
+            {
+                timer.GetComponent<TextMeshProUGUI>().text = ((cur + 1) / 2).ToString();
+            } */
             loadingTime += Time.deltaTime;
-            if (loadingTime > 2)
+            if (loadingTime > 5)
             {
                 gameStatus = "";
                 loadingTime = 0;
