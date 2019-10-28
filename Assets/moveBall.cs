@@ -167,17 +167,6 @@ public class moveBall : MonoBehaviour
 	
 	}
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "danger")
-        {
-			Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
-			doorScript.zVelPlayer = 0;
-			staticVars.gameStatus = "GameOver";
-			Destroy(gameObject);
-		}
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Magnet"))
