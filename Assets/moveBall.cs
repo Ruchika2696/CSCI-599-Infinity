@@ -200,14 +200,31 @@ public class moveBall : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.tag == "danger")
+        if (other.CompareTag("Shield"))
         {
-            Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
-            doorScript.zVelPlayer = 0;
-            staticVars.gameStatus = "GameOver";
-            Destroy(gameObject);
+            // when the player collides with a magnet it acquires magnet power-up
+            Debug.Log("triggered on shield contact");
+
+            st = new SimpleTimer("ShieldTimer", 15.0f);
+            StartCoroutine(st.ShieldPowerUp());
+            // if collider is a magnet
+            GM.shieldMode = true;
+
+            // destroy the magnet
+            Destroy(other.gameObject);
         }
 
+        if (other.tag == "danger")
+        {
+            if (!GM.shieldMode)
+            {
+                Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+                doorScript.zVelPlayer = 0;
+                staticVars.gameStatus = "GameOver";
+                Destroy(gameObject);
+            }
+            
+        }
         else if (GM.acquireMagnet == false &&
             other.gameObject.GetComponent<Renderer>() != null &&
             other.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color &&
@@ -216,7 +233,7 @@ public class moveBall : MonoBehaviour
             Destroy(other.gameObject);
             CoinScoreCalculator(other);
         }
-        else if (GM.acquireMagnet == false &&
+        else if (GM.shieldMode == false && GM.acquireMagnet == false &&
             other.gameObject.GetComponent<Renderer>() != null &&
             other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color &&
             (other.gameObject.tag != "door"))

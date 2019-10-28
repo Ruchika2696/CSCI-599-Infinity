@@ -37,12 +37,14 @@ public class SimpleTimer : MonoBehaviour
         GM.acquireMagnet = true;
         yield return new WaitForSeconds(this.targetTime);
         GM.acquireMagnet = false;
-        Debug.Log("Ended timer : " + this.timerName);
+        //Debug.Log("Ended Magnet timer : " + this.timerName);
     }
-
     public IEnumerator ShieldPowerUp()
     {
-        return null;
+        GM.shieldMode = true;
+        yield return new WaitForSeconds(this.targetTime);
+        GM.shieldMode = false;
+        //Debug.Log("Ended Shield timer : " + this.timerName);
     }
 
  //   void timerEnded()

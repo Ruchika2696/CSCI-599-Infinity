@@ -10,7 +10,7 @@ public class GM : MonoBehaviour
     // set this variable to true on trigger/collision
     // with magnet gameObject
     public static bool acquireMagnet;
-
+    public static bool shieldMode;
     void Start()
     {
         //Instantiate(bbNoObst, new Vector3(0.5f,0f,27.07f), bbNoObst.rotation);

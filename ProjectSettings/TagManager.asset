@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Coin
+  - danger
+  - door
+  - player
+  - Magnet
+  - Shield
   layers:
   - Default
   - TransparentFX
