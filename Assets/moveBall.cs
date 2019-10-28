@@ -19,18 +19,25 @@ public class moveBall : MonoBehaviour
 	Vector2 secondPressPos;
     Vector2 currentSwipe;
 
+    private Material yellowMat;
+    private Material redMat;
+    private Material greenMat;
+
     // Start is called before the first frame update
     void Start()
     {
         //gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-        Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+        // get Material objects to use for coin score calculation
+        yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
+        redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
+        greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
+
         gameObject.GetComponent<Renderer>().material = yellowMat;
         staticVars.redCount = 0;
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
         staticVars.score = 0;
 		groundContact = true;
-		
     }
 
     // Update is called once per frame
@@ -167,6 +174,16 @@ public class moveBall : MonoBehaviour
 	
 	}
 
+    private void CoinScoreCalculator(Collider other)
+    {
+        if (other.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
+            staticVars.yellowCount++;
+        else if (other.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
+            staticVars.greenCount++;
+        else if (other.gameObject.GetComponent<Renderer>().material.color == redMat.color)
+            staticVars.redCount++;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Magnet"))
@@ -196,25 +213,14 @@ public class moveBall : MonoBehaviour
             other.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color &&
             (other.gameObject.tag != "door"))
         {
-            //Debug.Log("first else if");
             Destroy(other.gameObject);
-            Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
-            Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
-            Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
-            if (other.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
-                staticVars.yellowCount++;
-            else if (other.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
-                staticVars.greenCount++;
-            else if (other.gameObject.GetComponent<Renderer>().material.color == redMat.color)
-                staticVars.redCount++;
-
+            CoinScoreCalculator(other);
         }
         else if (GM.acquireMagnet == false &&
             other.gameObject.GetComponent<Renderer>() != null &&
             other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color &&
             (other.gameObject.tag != "door"))
         {
-            //Debug.Log("second else if");
             Destroy(gameObject);
             doorScript.zVelPlayer = 0;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
@@ -226,15 +232,7 @@ public class moveBall : MonoBehaviour
             // when the player has magnet, on trigger, acquire coin
             // irrespective of coin and ball color
             Destroy(other.gameObject);
-            Material yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
-            Material redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
-            Material greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
-            if (other.gameObject.GetComponent<Renderer>().material.color == yellowMat.color)
-                staticVars.yellowCount++;
-            else if (other.gameObject.GetComponent<Renderer>().material.color == greenMat.color)
-                staticVars.greenCount++;
-            else if (other.gameObject.GetComponent<Renderer>().material.color == redMat.color)
-                staticVars.redCount++;
+            CoinScoreCalculator(other);
         }
     }
 
