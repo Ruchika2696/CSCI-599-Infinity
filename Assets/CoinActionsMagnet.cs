@@ -7,10 +7,10 @@ public class CoinActionsMagnet : MonoBehaviour
     // this script controls coin's movements towards the player
     // when the player acquires the magnet power-up
 
-    public float magnetStrength = 1f;
+    public float magnetStrength = 5f;
     public bool looseMagnet = true;
     // magnetic force strength based on distance of coin from magnet
-    public float distanceStrength = 5f;
+    public float distanceStrength = 10f;
     public float magnetTriggerDistance = 15.0f;
 
     private Transform trans;

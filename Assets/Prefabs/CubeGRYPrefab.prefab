@@ -788,9 +788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300c5b55159a48028842099819d6243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetStrength: 3
+  magnetStrength: 5
   looseMagnet: 1
-  distanceStrength: 5
+  distanceStrength: 10
+  magnetTriggerDistance: 15
   magnetInZone: 0
 --- !u!54 &1557297850319323882
 Rigidbody:
@@ -941,9 +942,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300c5b55159a48028842099819d6243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetStrength: 3
+  magnetStrength: 5
   looseMagnet: 1
-  distanceStrength: 5
+  distanceStrength: 10
+  magnetTriggerDistance: 15
   magnetInZone: 0
 --- !u!54 &7452916267685446044
 Rigidbody:
@@ -1094,9 +1096,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300c5b55159a48028842099819d6243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetStrength: 3
+  magnetStrength: 5
   looseMagnet: 1
-  distanceStrength: 5
+  distanceStrength: 10
+  magnetTriggerDistance: 15
   magnetInZone: 0
 --- !u!54 &26476525653821819
 Rigidbody:
