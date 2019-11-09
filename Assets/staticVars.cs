@@ -42,7 +42,7 @@ public class staticVars : MonoBehaviour
                 timer.GetComponent<TextMeshProUGUI>().text = ((cur + 1) / 2).ToString();
             } */
             loadingTime += Time.deltaTime;
-            if (loadingTime > 5)
+            if (loadingTime > 2)
             {
                 gameStatus = "";
                 loadingTime = 0;
