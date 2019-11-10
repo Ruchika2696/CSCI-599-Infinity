@@ -49,6 +49,7 @@ public class moveBall : MonoBehaviour
         movementBlocked = "NO";
         gameTime = 0;
         laneNum = 2;
+        staticVars.paisa = false;
         groundContact = true;
     }
 
@@ -290,7 +291,11 @@ public class moveBall : MonoBehaviour
                 Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
                 doorScript.zVelPlayer = 0;
                 staticVars.gameStatus = "GameOver";
-                deathScreen.gameObject.SetActive(true);
+                if (staticVars.redCount >= 10 && staticVars.yellowCount >= 10 && staticVars.greenCount >= 10)
+                {
+                    staticVars.paisa = true;
+                    deathScreen.gameObject.SetActive(true);
+                }
                 gameObject.SetActive(false);
             }
 
@@ -310,7 +315,11 @@ public class moveBall : MonoBehaviour
         {
             //    Destroy(gameObject);
             gameObject.SetActive(false);
-            deathScreen.gameObject.SetActive(true);
+            if (staticVars.redCount >= 10 && staticVars.yellowCount >= 10 && staticVars.greenCount >= 10)
+            {
+                staticVars.paisa = true;
+                deathScreen.gameObject.SetActive(true);
+            }
             doorScript.zVelPlayer = 0;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
@@ -366,14 +375,15 @@ public class moveBall : MonoBehaviour
     public void Reset()
     {
 
-        //if(staticVars.redCount >= 10 && staticVars.greenCount >= 10 && staticVars.yellowCount >= 10)
-          if(true)
+        if(staticVars.redCount >= 10 && staticVars.greenCount >= 10 && staticVars.yellowCount >= 10)
+       //   if(true)
         {
             //     movementBlocked = "YES";
             GM.acquireMagnet = false;
             deathScreen.gameObject.SetActive(false);
             staticVars.gameStatus = "";
             staticVars.loadingTime = 0;
+            staticVars.paisa = false;
             doorScript.zVelPlayer = 1;
             gameObject.SetActive(true);
             horVel = 0;

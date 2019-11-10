@@ -13,6 +13,7 @@ public class staticVars : MonoBehaviour
     public static float loadingTime = 0;
     public static string gameStatus = "";
     public static int redCount, yellowCount, greenCount, score;
+    public static bool paisa;
     GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
     GameObject timer;
     public DeathMenu deathScreen;
@@ -36,14 +37,18 @@ public class staticVars : MonoBehaviour
         if (gameStatus == "GameOver")
         {
             timer = GameObject.Find("Timer");
-            Debug.Log(timer);
+       //     Debug.Log(timer);
             int cur = (int)(10 - loadingTime);
-            if (cur % 2 == 1)
+            if (timer)
             {
-                timer.GetComponent<TextMeshProUGUI>().text = ((cur + 1) / 2).ToString();
-            } 
+                if (cur % 2 == 1)
+                {
+                    timer.GetComponent<TextMeshProUGUI>().text = ((cur + 1) / 2).ToString();
+                }
+            }
             loadingTime += Time.deltaTime;
-            if (loadingTime > 10)
+            Debug.Log("LOADING TIME :- " + loadingTime);
+            if (loadingTime > (paisa ? 10 : 2))
             {
                 gameStatus = "";
                 loadingTime = 0;
