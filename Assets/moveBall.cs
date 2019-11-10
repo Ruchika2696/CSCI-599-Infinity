@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class moveBall : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class moveBall : MonoBehaviour
     public KeyCode moveRight;
     public KeyCode space;
     public float horVel = 0;
-    public int laneNum = 2;
-    public string movementBlocked = "NO";
+    public int laneNum;
+    public bool flag;
+    int safeLane;
+    public string movementBlocked;
     public Transform gameOverAnimationObject;
     SimpleTimer st;
 
@@ -18,10 +21,13 @@ public class moveBall : MonoBehaviour
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
-
+    public DeathMenu deathScreen;
     private Material yellowMat;
     private Material redMat;
     private Material greenMat;
+    float safeZ;
+    float gameTime;
+    GameObject timer;
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +43,49 @@ public class moveBall : MonoBehaviour
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
         staticVars.score = 0;
+        safeZ = 0.78f;
+        safeLane = 2;
+        flag = false;
+        movementBlocked = "NO";
+        gameTime = 0;
+        laneNum = 2;
         groundContact = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (flag)
+        {
+            gameTime = 0;
+            float z = gameObject.transform.position.z;
+            if (safeLane == 1)
+            {
+                gameObject.transform.position = new Vector3(-2f, 1.14f, safeZ);
+
+            }
+            else if (safeLane == 2)
+            {
+                gameObject.transform.position = new Vector3(0.5f, 1.14f, safeZ);
+
+            }
+
+            else
+            {
+                gameObject.transform.position = new Vector3(3f, 1.14f, safeZ);
+            }
+            laneNum = safeLane;
+            flag = false;
+        }
+        //    Debug.Log("in update"+gameObject.transform.position);
+        gameTime += Time.deltaTime;
+        if (gameTime > 4)
+        {
+            safeZ = gameObject.transform.position.z;
+            Debug.Log("SAFE Z VALUE :- " + safeZ);
+            safeLane = laneNum;
+            gameTime = 0;
+        }
         staticVars.score++;
         // Debug.Log(staticVars.score);
 
@@ -178,6 +221,12 @@ public class moveBall : MonoBehaviour
         }
     }
 
+
+    int max(int a, int b)
+    {
+        return (a > b) ? a : b;
+    }
+
     IEnumerator Jump()
     {
 
@@ -241,7 +290,8 @@ public class moveBall : MonoBehaviour
                 Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
                 doorScript.zVelPlayer = 0;
                 staticVars.gameStatus = "GameOver";
-                Destroy(gameObject);
+                deathScreen.gameObject.SetActive(true);
+                gameObject.SetActive(false);
             }
 
         }
@@ -258,7 +308,9 @@ public class moveBall : MonoBehaviour
             other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color &&
             (other.gameObject.tag != "door"))
         {
-            Destroy(gameObject);
+            //    Destroy(gameObject);
+            gameObject.SetActive(false);
+            deathScreen.gameObject.SetActive(true);
             doorScript.zVelPlayer = 0;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
@@ -309,6 +361,80 @@ public class moveBall : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         horVel = 0;
         movementBlocked = "NO";
+    }
+
+    public void Reset()
+    {
+
+        //if(staticVars.redCount >= 10 && staticVars.greenCount >= 10 && staticVars.yellowCount >= 10)
+          if(true)
+        {
+            //     movementBlocked = "YES";
+            GM.acquireMagnet = false;
+            deathScreen.gameObject.SetActive(false);
+            staticVars.gameStatus = "";
+            staticVars.loadingTime = 0;
+            doorScript.zVelPlayer = 1;
+            gameObject.SetActive(true);
+            horVel = 0;
+            movementBlocked = "NO";
+            // Vector3 newPos = new Vector3(0, 0, 2);
+            //gameObject.transform.position += newPos;
+            if (safeLane == 1)
+            {
+                Debug.Log("SAFE Z VALUE :- " + safeZ);
+                float y = gameObject.transform.position.y;
+                float z = gameObject.transform.position.z;
+                Vector3 newPos = new Vector3(-2f, 1.14f, safeZ);
+                Debug.Log("SAFE LANE #1");
+                gameObject.transform.position = newPos;
+                Debug.Log(gameObject.transform.position);
+
+            }
+
+            if (safeLane == 2)
+            {
+                Debug.Log("SAFE#2 Z VALUE :- " + safeZ);
+                float y = gameObject.transform.position.y;
+                float z = gameObject.transform.position.z;
+                float x = gameObject.transform.position.x;
+                Debug.Log("SAFE LANE #2");
+                Vector3 newPos = new Vector3(0.5f, 1.14f, safeZ);
+                gameObject.transform.position = newPos;
+                Debug.Log(gameObject.transform.position);
+            }
+
+            if (safeLane == 3)
+            {
+                Debug.Log("SAFE#3 Z VALUE :- " + safeZ);
+                Debug.Log("SAFE LANE #3");
+                float y = gameObject.transform.position.y;
+                float z = gameObject.transform.position.z;
+                Vector3 newPos = new Vector3(3f, 1.14f, safeZ);
+                gameObject.transform.position = newPos;
+                Debug.Log(gameObject.transform.position);
+
+            }
+            staticVars.redCount = max(0, staticVars.redCount - 10);
+            staticVars.greenCount = max(0, staticVars.greenCount - 10);
+            staticVars.yellowCount = max(0, staticVars.yellowCount - 10);
+            Vector3 changeCam = new Vector3(0.8f, 3.7f, (safeZ - 8f));
+            // Debug.Log(newPos + changeCam);
+            GameObject.Find("Main Camera").transform.position = changeCam;
+            //       movementBlocked = "NO";
+            flag = true;
+            //  Debug.Log("Flag#2 " + flag);
+            //     StartCoroutine(stopSlide());
+
+            //horVel = 0;
+            //  st = new SimpleTimer("ResumeTimer", 1f);
+            //  StartCoroutine(st.EnableMovement());
+        }
+        else
+        {
+            Debug.Log("Not enough coins");
+        }
+
     }
 
 }

@@ -22,10 +22,10 @@ public class staticVars : MonoBehaviour
         yellowCountPos = GameObject.Find("yellowCount");
         greenCountPos = GameObject.Find("greenCount");
         scorePos = GameObject.Find("Score");
-        /*  if(deathScreen.gameObject.activeSelf == true)
-          {
-              timer = GameObject.Find("Timer");
-          } */
+        if(deathScreen.gameObject.activeSelf == true)
+        {
+            timer = GameObject.Find("Timer");
+        } 
     }
 
     // Update is called once per frame
@@ -35,14 +35,15 @@ public class staticVars : MonoBehaviour
 
         if (gameStatus == "GameOver")
         {
-         /*   timer = GameObject.Find("Timer");
+            timer = GameObject.Find("Timer");
+            Debug.Log(timer);
             int cur = (int)(10 - loadingTime);
             if (cur % 2 == 1)
             {
                 timer.GetComponent<TextMeshProUGUI>().text = ((cur + 1) / 2).ToString();
-            } */
+            } 
             loadingTime += Time.deltaTime;
-            if (loadingTime > 2)
+            if (loadingTime > 10)
             {
                 gameStatus = "";
                 loadingTime = 0;
