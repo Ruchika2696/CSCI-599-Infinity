@@ -731,6 +731,10 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -751,10 +755,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: bb1762ed-4894-4ea4-bb2a-e036d3faa996
+  cloudProjectId: ad00ad4f-0248-4917-a715-7d5b57209f50
   framebufferDepthMemorylessMode: 0
   projectName: Game599
-  organizationId: mpulastya
+  organizationId: joshir
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

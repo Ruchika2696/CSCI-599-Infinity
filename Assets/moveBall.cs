@@ -49,6 +49,23 @@ public class moveBall : MonoBehaviour
         //Debug.Log(staticVars.yVel);
         GetComponent<Rigidbody>().velocity = new Vector3(horVel, staticVars.yVel, 10 * doorScript.zVelPlayer);
 
+		if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                // Insert Code Here (I.E. Load Scene, Etc)
+                // OR Application.Quit();
+				//Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+                doorScript.zVelPlayer = 0;
+                staticVars.gameStatus = "GameOver";
+                //Destroy(gameObject);
+                return;
+            }
+ 
+	}
+
+
+
         if (Input.GetKeyDown(moveLeft) && (laneNum > 1) && (movementBlocked == "NO"))
         {
             horVel = -5;
