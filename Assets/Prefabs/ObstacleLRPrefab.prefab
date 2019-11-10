@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 5121578675874074704}
   - component: {fileID: 6800010536640331559}
   m_Layer: 0
-  m_Name: obstacle (3)
+  m_Name: obstacle
   m_TagString: danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 1317228550832840492}
   - component: {fileID: 6814463285963761691}
   m_Layer: 0
-  m_Name: obstacle (4)
+  m_Name: obstacle
   m_TagString: danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

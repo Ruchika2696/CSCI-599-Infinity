@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 1446082663571796275}
   - component: {fileID: 962778152476646980}
   m_Layer: 0
-  m_Name: obstacle (3)
+  m_Name: obstacle
   m_TagString: danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

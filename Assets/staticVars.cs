@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Analytics;
 
 public class staticVars : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class staticVars : MonoBehaviour
     public static float gameTime = 0;
     public static float loadingTime = 0;
     public static string gameStatus = "";
-    public static int redCount, yellowCount, greenCount, score;
     public static bool paisa;
+    public static int redCount, yellowCount, greenCount, score, shieldCount, magnetCount;
     GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
     GameObject timer;
     public DeathMenu deathScreen;
@@ -35,7 +36,21 @@ public class staticVars : MonoBehaviour
         gameTime += Time.deltaTime;
 
         if (gameStatus == "GameOver")
-        {
+        {	
+
+			Analytics.CustomEvent("coinsEarned", new Dictionary<string, object>
+              {
+                              { "yellowCount", staticVars.yellowCount },
+                              { "greenCount", staticVars.greenCount },
+                              { "redCount", staticVars.redCount }
+              });
+
+              Analytics.CustomEvent("powerUpEvent", new Dictionary<string, object>
+               {
+                              { "shieldCount", staticVars.shieldCount },
+                              { "magnetCount", staticVars.magnetCount }
+               });
+			
             timer = GameObject.Find("Timer");
        //     Debug.Log(timer);
             int cur = (int)(10 - loadingTime);

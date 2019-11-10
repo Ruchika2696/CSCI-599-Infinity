@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Analytics;
 
 public class moveBall : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class moveBall : MonoBehaviour
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
         staticVars.score = 0;
+		staticVars.magnetCount = 0;
+		staticVars.shieldCount = 0;
         safeZ = 0.78f;
         safeLane = 2;
         flag = false;
@@ -111,7 +114,10 @@ public class moveBall : MonoBehaviour
 
 
         if (Input.GetKeyDown(moveLeft) && (laneNum > 1) && (movementBlocked == "NO"))
-        {
+        {	
+			//Dictionary<string, object> data = new Dictionary<string, object>();
+			//data.Add("test1", "hello");
+			//Analytics.CustomEvent("test", data);
             horVel = -5;
             StartCoroutine(stopSlide());
             laneNum -= 1;
@@ -257,8 +263,9 @@ public class moveBall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Magnet"))
-        {
-            // when the player collides with a magnet it acquires magnet power-up
+        {	
+			staticVars.magnetCount+=1;
+		// when the player collides with a magnet it acquires magnet power-up
             Debug.Log("triggered on magnet contact");
 
             st = new SimpleTimer("MagnetTimer", 15.0f);
@@ -271,7 +278,8 @@ public class moveBall : MonoBehaviour
         }
 
         if (other.CompareTag("Shield"))
-        {
+        {	
+			staticVars.shieldCount +=1;
             // when the player collides with a magnet it acquires magnet power-up
             Debug.Log("triggered on shield contact");
 
@@ -288,6 +296,7 @@ public class moveBall : MonoBehaviour
         {
             if (!GM.shieldMode)
             {
+				
                 Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
                 doorScript.zVelPlayer = 0;
                 staticVars.gameStatus = "GameOver";
@@ -297,6 +306,22 @@ public class moveBall : MonoBehaviour
                     deathScreen.gameObject.SetActive(true);
                 }
                 gameObject.SetActive(false);
+
+				Destroy(gameObject);
+                if(other.gameObject.name == "Pit")
+                {
+                    Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+                        {
+                            { "reason", "pit" },
+                        });
+                }
+                if(other.gameObject.name == "obstacle")
+                {
+                     Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+                      {
+                            { "reason", "obstacle" },
+                      });
+                }
             }
 
         }
@@ -323,6 +348,12 @@ public class moveBall : MonoBehaviour
             doorScript.zVelPlayer = 0;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
+
+			Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+              {
+                      { "reason", "other coins" },
+              });
+            Destroy(gameObject);
         }
 
         if (GM.acquireMagnet == true && other.tag == "Coin")
