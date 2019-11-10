@@ -12,23 +12,14 @@ public class doorScript : MonoBehaviour
     public GameObject NameLabel;
     public GameObject[] otherDoors;
     public static int zVelPlayer = 1;
-    private static Dictionary<string, object> doorColorCrossCount = new Dictionary<string, object>{
-            { "redDoor", 0},
-            { "yellowDoor", 0},
-            { "greenDoor", 0}
-        };
 
-private Material yellowMat;
-    private Material redMat;
-    private Material greenMat;
-    private Material doorMat;
+    private static Dictionary<string, object> doorCrossCount = new Dictionary<string, object>{
+            { "noOfDoorsCrossed", 0}
+        };
 
     void Start()
     {
         gameObject.tag = "door";
-        yellowMat = Resources.Load("centerDoor", typeof(Material)) as Material;
-        redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
-        greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
     }
 
     // Update is called once per frame
@@ -41,30 +32,16 @@ private Material yellowMat;
     {
         if (other.tag == "player")
         {
-            doorMat = gameObject.GetComponent<Renderer>().material;
-            String key = String.Empty;
-            if (doorMat.color.Equals(yellowMat.color))
-            {
-                key = "yellowDoor";
-            }
-            else if(doorMat.color.Equals(redMat.color))
-            {
-                key = "redDoor";
-            }
-            else if(doorMat.color.Equals(greenMat.color))
-            {
-                key = "greenDoor";
-            }
             try
             {
-                doorColorCrossCount[key] = Convert.ToInt32(doorColorCrossCount[key]) + 1;
+                doorCrossCount["noOfDoorsCrossed"] = Convert.ToInt32(doorCrossCount["noOfDoorsCrossed"]) + 1;
             }
             catch(KeyNotFoundException)
             {
                 Debug.Log("key not found in doorColorCrossCount dictionary");
             }
-
-            Analytics.CustomEvent("doorCrossed", doorColorCrossCount);
+            // Event track # doors crossed for each door color
+            Analytics.CustomEvent("doorCrossed", doorCrossCount);
 
             other.gameObject.GetComponent<Renderer>().material.color = gameObject.GetComponent<Renderer>().material.color;
             Destroy(gameObject);
@@ -75,5 +52,4 @@ private Material yellowMat;
             }
         }
     }
-    
 }
