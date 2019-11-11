@@ -62,7 +62,7 @@ public class staticVars : MonoBehaviour
                 }
             }
             loadingTime += Time.deltaTime;
-            Debug.Log("LOADING TIME :- " + loadingTime);
+            //Debug.Log("LOADING TIME :- " + loadingTime);
             if (loadingTime > (paisa ? 10 : 2))
             {
                 gameStatus = "";

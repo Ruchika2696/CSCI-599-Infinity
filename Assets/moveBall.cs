@@ -86,7 +86,6 @@ public class moveBall : MonoBehaviour
         if (gameTime > 4)
         {
             safeZ = gameObject.transform.position.z;
-            Debug.Log("SAFE Z VALUE :- " + safeZ);
             safeLane = laneNum;
             gameTime = 0;
         }
@@ -265,9 +264,7 @@ public class moveBall : MonoBehaviour
         if (other.CompareTag("Magnet"))
         {	
 			staticVars.magnetCount+=1;
-		// when the player collides with a magnet it acquires magnet power-up
-            Debug.Log("triggered on magnet contact");
-
+		    // when the player collides with a magnet it acquires magnet power-up
             st = new SimpleTimer("MagnetTimer", 15.0f);
             StartCoroutine(st.MagnetPowerUp());
             // if collider is a magnet
@@ -281,8 +278,6 @@ public class moveBall : MonoBehaviour
         {	
 			staticVars.shieldCount +=1;
             // when the player collides with a magnet it acquires magnet power-up
-            Debug.Log("triggered on shield contact");
-
             st = new SimpleTimer("ShieldTimer", 15.0f);
             StartCoroutine(st.ShieldPowerUp());
             // if collider is a magnet
@@ -336,14 +331,18 @@ public class moveBall : MonoBehaviour
             other.gameObject.GetComponent<Renderer>().material.color == gameObject.GetComponent<Renderer>().material.color &&
             (other.gameObject.tag != "door"))
         {
+            // Same color coins acquired
             Destroy(other.gameObject);
             CoinScoreCalculator(other);
         }
         else if (GM.shieldMode == false && GM.acquireMagnet == false &&
+            GM.powerupEffect == false &&
             other.gameObject.GetComponent<Renderer>() != null &&
             other.gameObject.GetComponent<Renderer>().material.color != gameObject.GetComponent<Renderer>().material.color &&
             (other.gameObject.tag != "door"))
         {
+            // Different color coins. Player dies
+
             //    Destroy(gameObject);
             gameObject.SetActive(false);
             if (staticVars.redCount >= 10 && staticVars.yellowCount >= 10 && staticVars.greenCount >= 10)
@@ -376,7 +375,6 @@ public class moveBall : MonoBehaviour
             CoinScoreCalculator(other);
         }
     }
-
 
 
     //private void OnTriggerEnter(Collider other)
