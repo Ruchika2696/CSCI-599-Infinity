@@ -307,7 +307,13 @@ public class moveBall : MonoBehaviour
                 }
                 gameObject.SetActive(false);
 
-				Destroy(gameObject);
+                // Distance covered before dying
+                Analytics.CustomEvent("distanceEvent", new Dictionary<string, object>
+                        {
+                            { "distanceCovered", gameObject.transform.position.z}
+                        });
+
+                Destroy(gameObject);
                 if(other.gameObject.name == "Pit")
                 {
                     Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
@@ -349,7 +355,13 @@ public class moveBall : MonoBehaviour
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
 
-			Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+            // Distance covered before dying
+            Analytics.CustomEvent("distanceEvent", new Dictionary<string, object>
+                        {
+                            { "distanceCovered", gameObject.transform.position.z}
+                        });
+
+            Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
               {
                       { "reason", "other coins" },
               });
