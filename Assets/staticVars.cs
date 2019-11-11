@@ -12,12 +12,15 @@ public class staticVars : MonoBehaviour
     public static float yVel = 0;
     public static float gameTime = 0;
     public static float loadingTime = 0;
+    public static int playCount = 0;
     public static string gameStatus = "";
+    public static int quitCount = 0;
     public static bool paisa;
     public static int redCount, yellowCount, greenCount, score, shieldCount, magnetCount;
     GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
     GameObject timer;
     public DeathMenu deathScreen;
+    public PauseMenu pauseScreen;
     void Start()
     {
         redCountPos = GameObject.Find("redCount");

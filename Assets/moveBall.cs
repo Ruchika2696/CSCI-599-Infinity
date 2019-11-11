@@ -23,6 +23,7 @@ public class moveBall : MonoBehaviour
     Vector2 secondPressPos;
     Vector2 currentSwipe;
     public DeathMenu deathScreen;
+    public PauseMenu pauseScreen;
     private Material yellowMat;
     private Material redMat;
     private Material greenMat;
@@ -89,7 +90,8 @@ public class moveBall : MonoBehaviour
             safeLane = laneNum;
             gameTime = 0;
         }
-        staticVars.score++;
+        if(pauseScreen.gameObject.activeSelf != true)
+            staticVars.score++;
         // Debug.Log(staticVars.score);
 
         //Debug.Log(staticVars.yVel);
@@ -101,23 +103,18 @@ public class moveBall : MonoBehaviour
             {
                 // Insert Code Here (I.E. Load Scene, Etc)
                 // OR Application.Quit();
-				//Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
                 doorScript.zVelPlayer = 0;
-                staticVars.gameStatus = "GameOver";
-                //Destroy(gameObject);
-                return;
+                pauseScreen.gameObject.SetActive(true);
             }
  
-	}
-
-
+	    }
 
         if (Input.GetKeyDown(moveLeft) && (laneNum > 1) && (movementBlocked == "NO"))
         {	
 			//Dictionary<string, object> data = new Dictionary<string, object>();
 			//data.Add("test1", "hello");
 			//Analytics.CustomEvent("test", data);
-            horVel = -5;
+            horVel = -10;
             StartCoroutine(stopSlide());
             laneNum -= 1;
             movementBlocked = "YES";
@@ -125,7 +122,7 @@ public class moveBall : MonoBehaviour
         }
         if (Input.GetKeyDown(moveRight) && (laneNum < 3) && (movementBlocked == "NO"))
         {
-            horVel = 5;
+            horVel = 10;
             StartCoroutine(stopSlide());
             laneNum += 1;
             movementBlocked = "YES";
@@ -408,7 +405,7 @@ public class moveBall : MonoBehaviour
 
     IEnumerator stopSlide()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.25f);
         horVel = 0;
         movementBlocked = "NO";
     }
@@ -488,4 +485,21 @@ public class moveBall : MonoBehaviour
 
     }
 
+
+    public void Resume()
+    {
+            pauseScreen.gameObject.SetActive(false);
+            doorScript.zVelPlayer = 1;
+    }
+
+    public void Quit()
+    {
+        staticVars.quitCount++;
+        Analytics.CustomEvent("PlayGame", new Dictionary<string, object>
+        {
+            { "QuitCount", staticVars.quitCount }
+        });
+        Debug.Log("QUIT!");
+        Application.Quit();
+    }
 }
