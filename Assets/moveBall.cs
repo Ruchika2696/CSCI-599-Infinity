@@ -313,7 +313,7 @@ public class moveBall : MonoBehaviour
                             { "distanceCovered", gameObject.transform.position.z}
                         });
 
-                Destroy(gameObject);
+                //Destroy(gameObject);
                 if(other.gameObject.name == "Pit")
                 {
                     Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
@@ -365,7 +365,7 @@ public class moveBall : MonoBehaviour
               {
                       { "reason", "other coins" },
               });
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         if (GM.acquireMagnet == true && other.tag == "Coin")
