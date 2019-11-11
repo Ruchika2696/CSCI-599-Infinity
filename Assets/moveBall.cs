@@ -271,7 +271,7 @@ public class moveBall : MonoBehaviour
             st = new SimpleTimer("MagnetTimer", 15.0f);
             StartCoroutine(st.MagnetPowerUp());
             // if collider is a magnet
-            GM.acquireMagnet = true;
+            //GM.acquireMagnet = true;
 
             // destroy the magnet
             Destroy(other.gameObject);
@@ -286,7 +286,7 @@ public class moveBall : MonoBehaviour
             st = new SimpleTimer("ShieldTimer", 15.0f);
             StartCoroutine(st.ShieldPowerUp());
             // if collider is a magnet
-            GM.shieldMode = true;
+            //GM.shieldMode = true;
 
             // destroy the magnet
             Destroy(other.gameObject);
