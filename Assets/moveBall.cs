@@ -60,6 +60,7 @@ public class moveBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (flag)
         {
             gameTime = 0;
@@ -89,6 +90,23 @@ public class moveBall : MonoBehaviour
             safeZ = gameObject.transform.position.z;
             safeLane = laneNum;
             gameTime = 0;
+            if(movementBlocked == "NO")
+            {
+                if(laneNum == 1)
+                {
+                    gameObject.transform.position = new Vector3(-2f, 1.14f, gameObject.transform.position.z);
+                }
+
+                else if(laneNum == 2)
+                {
+                    gameObject.transform.position = new Vector3(0.5f, 1.14f, gameObject.transform.position.z);
+                }
+
+                else
+                {
+                    gameObject.transform.position = new Vector3(3f, 1.14f, gameObject.transform.position.z);
+                }
+            }
         }
         if(pauseScreen.gameObject.activeSelf != true)
             staticVars.score++;
