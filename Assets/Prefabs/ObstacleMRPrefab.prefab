@@ -378,8 +378,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7105279489917339484}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.417, y: 2.619134, z: 1.37969}
   m_Center: {x: 0, y: -0.00000011920929, z: 0.00000023841858}
@@ -757,7 +757,17 @@ PrefabInstance:
     - target: {fileID: 2625444309320150569, guid: e05358c80546a437d8e00834668206e8,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625444309320150569, guid: e05358c80546a437d8e00834668206e8,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625444309320150569, guid: e05358c80546a437d8e00834668206e8,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e05358c80546a437d8e00834668206e8, type: 3}
@@ -780,6 +790,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6860465984921134922}
     m_Modifications:
+    - target: {fileID: 2304175247929003513, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
+        type: 3}
+      propertyPath: m_Name
+      value: rock1
+      objectReference: {fileID: 0}
     - target: {fileID: 2304175247928709593, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -850,14 +865,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
-    - target: {fileID: 2304175247929003513, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
-        type: 3}
-      propertyPath: m_Name
-      value: rock1
-      objectReference: {fileID: 0}
     - target: {fileID: 2304175247935300441, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2304175247935300441, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2304175247935300441, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 377171054807720844, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 377171054807720844, guid: 4a2f7f93d3fcc486fb54a0de6979ebfb,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

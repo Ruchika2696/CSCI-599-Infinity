@@ -193,8 +193,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4739443397146380066}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 6.427999, y: 3.8500736, z: 3.1202807}
   m_Center: {x: -0.21166295, y: 1.9250368, z: 0.942844}
@@ -696,7 +696,7 @@ PrefabInstance:
     - target: {fileID: 6803673020509053530, guid: 088a89cae8a6e4185b36b33737125f82,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 6803673020509053530, guid: 088a89cae8a6e4185b36b33737125f82,
         type: 3}
@@ -751,12 +751,22 @@ PrefabInstance:
     - target: {fileID: 6803673020509053530, guid: 088a89cae8a6e4185b36b33737125f82,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6803673020507246810, guid: 088a89cae8a6e4185b36b33737125f82,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803673020507246810, guid: 088a89cae8a6e4185b36b33737125f82,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803673020507246810, guid: 088a89cae8a6e4185b36b33737125f82,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 088a89cae8a6e4185b36b33737125f82, type: 3}
