@@ -219,7 +219,7 @@ public class moveBall : MonoBehaviour
                     if ((laneNum > 1) && (movementBlocked == "NO"))
                     {
 
-                        horVel = -5;
+                        horVel = -10;
                         StartCoroutine(stopSlide());
                         laneNum -= 1;
                         movementBlocked = "YES";
@@ -231,7 +231,7 @@ public class moveBall : MonoBehaviour
                 {
                     if ((laneNum < 3) && (movementBlocked == "NO"))
                     {
-                        horVel = 5;
+                        horVel = 10;
                         StartCoroutine(stopSlide());
                         laneNum += 1;
                         movementBlocked = "YES";
