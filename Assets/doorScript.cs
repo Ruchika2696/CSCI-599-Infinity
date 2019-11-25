@@ -11,7 +11,7 @@ public class doorScript : MonoBehaviour
 
     public GameObject NameLabel;
     public GameObject[] otherDoors;
-    public static int zVelPlayer = 1;
+    public static float zVelPlayer = 1.0f;
 
     private static Dictionary<string, object> doorCrossCount = new Dictionary<string, object>{
             { "noOfDoorsCrossed", 0}

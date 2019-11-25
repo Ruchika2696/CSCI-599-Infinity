@@ -121,7 +121,7 @@ public class moveBall : MonoBehaviour
             {
                 // Insert Code Here (I.E. Load Scene, Etc)
                 // OR Application.Quit();
-                doorScript.zVelPlayer = 0;
+                doorScript.zVelPlayer = 0.0f;
                 pauseScreen.gameObject.SetActive(true);
             }
  
@@ -308,7 +308,7 @@ public class moveBall : MonoBehaviour
             {
 				
                 Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
-                doorScript.zVelPlayer = 0;
+                doorScript.zVelPlayer = 0.0f;
                 staticVars.gameStatus = "GameOver";
                 if (staticVars.redCount >= 10 && staticVars.yellowCount >= 10 && staticVars.greenCount >= 10)
                 {
@@ -365,7 +365,7 @@ public class moveBall : MonoBehaviour
                 staticVars.paisa = true;
                 deathScreen.gameObject.SetActive(true);
             }
-            doorScript.zVelPlayer = 0;
+            doorScript.zVelPlayer = 0.0f;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
 
@@ -440,7 +440,7 @@ public class moveBall : MonoBehaviour
             staticVars.gameStatus = "";
             staticVars.loadingTime = 0;
             staticVars.paisa = false;
-            doorScript.zVelPlayer = 1;
+            doorScript.zVelPlayer = 1.0f;
             gameObject.SetActive(true);
             horVel = 0;
             movementBlocked = "NO";
@@ -507,7 +507,7 @@ public class moveBall : MonoBehaviour
     public void Resume()
     {
             pauseScreen.gameObject.SetActive(false);
-            doorScript.zVelPlayer = 1;
+            doorScript.zVelPlayer = 1.0f;
     }
 
     public void Quit()
