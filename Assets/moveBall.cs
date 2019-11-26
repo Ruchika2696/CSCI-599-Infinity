@@ -13,22 +13,32 @@ public class moveBall : MonoBehaviour
     public int laneNum;
     public bool flag;
     int safeLane;
+    int preSafeLane;
     public string movementBlocked;
     public Transform gameOverAnimationObject;
     SimpleTimer st;
 
     private bool isGrounded;
     private bool groundContact;
+    private float coinsFlag;
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
+    public float safeZVelPlayer;
     public DeathMenu deathScreen;
     public PauseMenu pauseScreen;
     private Material yellowMat;
     private Material redMat;
+    public CoinsNeeded coinsNeeded;
+    int currRed;
+    int currYellow;
+    int currGreen;
     private Material greenMat;
     float safeZ;
+    float preSafeZ;
+
     float gameTime;
+    private bool shownOnce;
     GameObject timer;
 
     // Start is called before the first frame update
@@ -44,27 +54,70 @@ public class moveBall : MonoBehaviour
         staticVars.redCount = 0;
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
+        currRed = 1;
+        currYellow = 1;
+        currGreen = 1;
         staticVars.score = 0;
 		staticVars.magnetCount = 0;
 		staticVars.shieldCount = 0;
         safeZ = 0.78f;
+        safeZVelPlayer = 1f;
         safeLane = 2;
+        preSafeZ = 0.78f;
+        preSafeLane = 2;
         flag = false;
         movementBlocked = "NO";
         gameTime = 0;
         laneNum = 2;
         staticVars.paisa = false;
         groundContact = true;
+        coinsFlag = 0;
+        shownOnce = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(coinsFlag > 2)
+        {
+         //   Debug.Log("VIRALLLLLLLLLLLLLLLLL");
+            coinsFlag = 0;
+            coinsNeeded.gameObject.SetActive(false);
+            shownOnce = true;
+        }
+
+        if(shownOnce == false)
+        {
+            if(currRed > staticVars.redCount && (currRed - staticVars.redCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.yellowCount >= (currYellow - 4))
+            {
+                coinsNeeded.gameObject.SetActive(true);
+                coinsFlag += Time.deltaTime;
+            }
+
+            else if (currYellow > staticVars.yellowCount && (currYellow - staticVars.yellowCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.redCount >= (currRed - 4))
+            {
+                coinsNeeded.gameObject.SetActive(true);
+                coinsFlag += Time.deltaTime;
+            }
+
+            else if (currGreen > staticVars.greenCount && (currGreen - staticVars.greenCount <= 4) && staticVars.redCount >= (currRed - 4) && staticVars.yellowCount >= (currYellow - 4))
+            {
+                coinsNeeded.gameObject.SetActive(true);
+                coinsFlag += Time.deltaTime;
+            }
+        }
 
         if (flag)
         {
             gameTime = 0;
             float z = gameObject.transform.position.z;
+
+            if (Mathf.Abs(z - safeZ) < 2f)
+            {
+                safeLane = preSafeLane;
+                safeZ = preSafeZ;
+            }
+
             if (safeLane == 1)
             {
                 gameObject.transform.position = new Vector3(-2f, 1.14f, safeZ);
@@ -87,6 +140,8 @@ public class moveBall : MonoBehaviour
         gameTime += Time.deltaTime;
         if (gameTime > 4)
         {
+            preSafeZ = safeZ;
+            preSafeLane = safeLane;
             safeZ = gameObject.transform.position.z;
             safeLane = laneNum;
             gameTime = 0;
@@ -121,8 +176,12 @@ public class moveBall : MonoBehaviour
             {
                 // Insert Code Here (I.E. Load Scene, Etc)
                 // OR Application.Quit();
+                if (doorScript.zVelPlayer > 0)
+                    safeZVelPlayer = doorScript.zVelPlayer;
                 doorScript.zVelPlayer = 0.0f;
                 pauseScreen.gameObject.SetActive(true);
+                staticVars.gameStatus = "Paused"; 
+                movementBlocked = "YES";
             }
  
 	    }
@@ -307,11 +366,12 @@ public class moveBall : MonoBehaviour
         {
             if (!GM.shieldMode)
             {
-				
                 Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
+                if (doorScript.zVelPlayer > 0)
+                    safeZVelPlayer = doorScript.zVelPlayer;
                 doorScript.zVelPlayer = 0.0f;
                 staticVars.gameStatus = "GameOver";
-                if (staticVars.redCount >= 10 && staticVars.yellowCount >= 10 && staticVars.greenCount >= 10)
+                if (staticVars.redCount >= currRed && staticVars.yellowCount >= currYellow && staticVars.greenCount >= currGreen)
                 {
                     staticVars.paisa = true;
                     deathScreen.gameObject.SetActive(true);
@@ -361,11 +421,13 @@ public class moveBall : MonoBehaviour
 
             //    Destroy(gameObject);
             gameObject.SetActive(false);
-            if (staticVars.redCount >= 10 && staticVars.yellowCount >= 10 && staticVars.greenCount >= 10)
+            if (staticVars.redCount >= currRed && staticVars.yellowCount >= currYellow && staticVars.greenCount >= currGreen)
             {
                 staticVars.paisa = true;
                 deathScreen.gameObject.SetActive(true);
             }
+            if (doorScript.zVelPlayer > 0)
+                safeZVelPlayer = doorScript.zVelPlayer;
             doorScript.zVelPlayer = 0.0f;
             Instantiate(gameOverAnimationObject, transform.position, gameOverAnimationObject.rotation);
             staticVars.gameStatus = "GameOver";
@@ -432,21 +494,32 @@ public class moveBall : MonoBehaviour
     public void Reset()
     {
 
-        if(staticVars.redCount >= 10 && staticVars.greenCount >= 10 && staticVars.yellowCount >= 10)
+        if(staticVars.redCount >= currRed && staticVars.greenCount >= currGreen && staticVars.yellowCount >= currYellow)
        //   if(true)
         {
+            shownOnce = false;
+            currRed += 2;
+            currYellow += 2;
+            currGreen += 2;
             //     movementBlocked = "YES";
             GM.acquireMagnet = false;
             deathScreen.gameObject.SetActive(false);
             staticVars.gameStatus = "";
             staticVars.loadingTime = 0;
             staticVars.paisa = false;
-            doorScript.zVelPlayer = 1.0f;
+            doorScript.zVelPlayer = safeZVelPlayer;
             gameObject.SetActive(true);
             horVel = 0;
             movementBlocked = "NO";
             // Vector3 newPos = new Vector3(0, 0, 2);
             //gameObject.transform.position += newPos;
+
+            if(Mathf.Abs(gameObject.transform.position.z - safeZ) < 2f)
+            {
+                safeLane = preSafeLane;
+                safeZ = preSafeZ;
+            }
+
             if (safeLane == 1)
             {
                 Debug.Log("SAFE Z VALUE :- " + safeZ);
@@ -456,7 +529,6 @@ public class moveBall : MonoBehaviour
                 Debug.Log("SAFE LANE #1");
                 gameObject.transform.position = newPos;
                 Debug.Log(gameObject.transform.position);
-
             }
 
             if (safeLane == 2)
@@ -480,11 +552,11 @@ public class moveBall : MonoBehaviour
                 Vector3 newPos = new Vector3(3f, 1.14f, safeZ);
                 gameObject.transform.position = newPos;
                 Debug.Log(gameObject.transform.position);
-
             }
-            staticVars.redCount = max(0, staticVars.redCount - 10);
-            staticVars.greenCount = max(0, staticVars.greenCount - 10);
-            staticVars.yellowCount = max(0, staticVars.yellowCount - 10);
+
+            staticVars.redCount = max(0, staticVars.redCount - currRed);
+            staticVars.greenCount = max(0, staticVars.greenCount - currGreen);
+            staticVars.yellowCount = max(0, staticVars.yellowCount - currYellow);
             Vector3 changeCam = new Vector3(0.8f, 3.7f, (safeZ - 8f));
             // Debug.Log(newPos + changeCam);
             GameObject.Find("Main Camera").transform.position = changeCam;
@@ -507,8 +579,10 @@ public class moveBall : MonoBehaviour
 
     public void Resume()
     {
-            pauseScreen.gameObject.SetActive(false);
-            doorScript.zVelPlayer = 1.0f;
+        pauseScreen.gameObject.SetActive(false);
+        Debug.Log("SAFE Z VELOCITY :- " + safeZVelPlayer);
+        doorScript.zVelPlayer = safeZVelPlayer;
+        movementBlocked = "NO";
     }
 
     public void Quit()
