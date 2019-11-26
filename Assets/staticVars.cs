@@ -19,7 +19,8 @@ public class staticVars : MonoBehaviour
     public static int redCount, yellowCount, greenCount, score, shieldCount, magnetCount;
     GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
     GameObject timer;
-    public static double speedTimer = 0.00;
+    public static int speedTimer;
+    public int speedIncrements;  // to stop speed inc after some time
     public DeathMenu deathScreen;
     public PauseMenu pauseScreen;
     void Start()
@@ -31,7 +32,7 @@ public class staticVars : MonoBehaviour
         if(deathScreen.gameObject.activeSelf == true)
         {
             timer = GameObject.Find("Timer");
-        } 
+        }
     }
 
     // Update is called once per frame
@@ -39,18 +40,19 @@ public class staticVars : MonoBehaviour
     {
         gameTime += Time.deltaTime;
         if(gameStatus != "GameOver" && gameStatus != "Paused")
-            speedTimer += 0.25;
+            speedTimer += 1;
       //  Debug.Log(speedTimer);
-        if(speedTimer > 100 && gameStatus != "GameOver" && gameStatus != "Paused")
+        if(speedTimer > 400 && speedIncrements < 5
+            && gameStatus != "GameOver" && gameStatus != "Paused")
         { 
-            doorScript.zVelPlayer += 0.5f;
+            doorScript.zVelPlayer += 0.05f;
             Debug.Log("enters block");
             Debug.Log(doorScript.zVelPlayer);
-            speedTimer = 0.00;
+            speedTimer = 0;
+            speedIncrements += 1;
         }
         if (gameStatus == "GameOver")
         {	
-
 			Analytics.CustomEvent("coinsEarned", new Dictionary<string, object>
               {
                               { "yellowCount", staticVars.yellowCount },
