@@ -19,6 +19,7 @@ public class staticVars : MonoBehaviour
     public static int redCount, yellowCount, greenCount, score, shieldCount, magnetCount;
     GameObject redCountPos, greenCountPos, yellowCountPos, scorePos;
     GameObject timer;
+    public static double speedTimer = 0.00;
     public DeathMenu deathScreen;
     public PauseMenu pauseScreen;
     void Start()
@@ -37,7 +38,16 @@ public class staticVars : MonoBehaviour
     void Update()
     {
         gameTime += Time.deltaTime;
-
+        if(gameStatus != "GameOver" && gameStatus != "Paused")
+            speedTimer += 0.25;
+      //  Debug.Log(speedTimer);
+        if(speedTimer > 100 && gameStatus != "GameOver" && gameStatus != "Paused")
+        { 
+            doorScript.zVelPlayer += 0.5f;
+            Debug.Log("enters block");
+            Debug.Log(doorScript.zVelPlayer);
+            speedTimer = 0.00;
+        }
         if (gameStatus == "GameOver")
         {	
 
@@ -71,7 +81,7 @@ public class staticVars : MonoBehaviour
                 gameStatus = "";
                 loadingTime = 0;
                 // SceneManager.LoadScene(0);
-                doorScript.zVelPlayer = 1;
+                doorScript.zVelPlayer = 1.0f;
                 Application.LoadLevel(0);
             }
         }
