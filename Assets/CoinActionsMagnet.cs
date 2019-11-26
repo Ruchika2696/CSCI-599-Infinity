@@ -34,7 +34,10 @@ public class CoinActionsMagnet : MonoBehaviour
             // dir between the player(magnet) and coin
             if (trans != null)
             {
-                magnetTrans = GameObject.FindGameObjectWithTag("player").transform;
+                if(GameObject.FindGameObjectWithTag("player") != null)
+                {
+                    magnetTrans = GameObject.FindGameObjectWithTag("player").transform;
+                }
                 Vector3 directionMagnet = magnetTrans.position - trans.position;
 
                 // distance between the player(magnet) and coin

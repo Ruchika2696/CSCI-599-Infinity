@@ -35,15 +35,14 @@ public class SimpleTimer : MonoBehaviour
     public IEnumerator MagnetPowerUp()
     {
         GM.acquireMagnet = true;
-        Debug.Log(GM.acquireMagnet);
         yield return new WaitForSeconds(this.targetTime);
         GM.acquireMagnet = false;
-        Debug.Log("magnet acquire end!!");
+        //Debug.Log("magnet acquire end!!");
 
         GM.powerupEffect = true;
         yield return new WaitForSeconds(3.0f);
         GM.powerupEffect = false;
-        Debug.Log("magnet effect end!!");
+        //Debug.Log("magnet effect end!!");
     }
 
     public IEnumerator ShieldPowerUp()
