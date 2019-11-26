@@ -40,7 +40,7 @@ public class staticVars : MonoBehaviour
         gameTime += Time.deltaTime;
         speedTimer += 0.25;
         Debug.Log(speedTimer);
-        if(speedTimer > 50 && gameStatus != "GameOver"){
+        if(speedTimer > 100 && gameStatus != "GameOver"){
             doorScript.zVelPlayer += 0.5f;
             Debug.Log("enters block");
             Debug.Log(doorScript.zVelPlayer);

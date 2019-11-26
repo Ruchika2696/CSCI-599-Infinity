@@ -40,7 +40,7 @@ public class moveBall : MonoBehaviour
         redMat = Resources.Load("leftDoor", typeof(Material)) as Material;
         greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
 
-        gameObject.GetComponent<Renderer>().material = yellowMat;
+        //gameObject.GetComponent<Renderer>().material = yellowMat;
         staticVars.redCount = 0;
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
@@ -203,7 +203,7 @@ public class moveBall : MonoBehaviour
                 //swipe upwards
                 if (currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
                 {
-                    groundContact = true;
+                    //groundContact = true;
                     StartCoroutine(Jump());
                 }
 
@@ -254,9 +254,10 @@ public class moveBall : MonoBehaviour
         if (groundContact)
         {
             Debug.Log("hit space");
+			 groundContact = false;
             Vector3 up = new Vector3(0, 1.5f, 0);
             gameObject.transform.position += up;
-            groundContact = false;
+           
             yield return new WaitForSeconds(.6f);
             gameObject.transform.position -= up;
             groundContact = true;
