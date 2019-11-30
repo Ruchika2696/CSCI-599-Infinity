@@ -13,7 +13,7 @@ public class TrackManager : MonoBehaviour
     public float doortimer = 0.0f;
     public float magnettimer = 0.0f;
     public float shieldtimer = 0.0f;
-
+    public int EasyTime = 0;
     private int lastPrefabIndex = 0;
 
     public ObjectPooler[] theObjectPools;
@@ -23,6 +23,7 @@ public class TrackManager : MonoBehaviour
     void Start()
     {
         activeTracks = new List<GameObject>();
+        EasyTime = 0;
         playerTransform = GameObject.FindGameObjectWithTag("player").transform;
         for(int i=0; i<3; i++)
               SpawnTrack(0);
@@ -77,7 +78,7 @@ public class TrackManager : MonoBehaviour
                     }
 
                    if(prefabIndex == 0){ //plane tracks
-                        for(int i=0; i<3; i++)
+                        for(int i=0; i<5; i++)
                         {
                             SpawnTrack(prefabIndex);
                         }
@@ -131,7 +132,15 @@ public class TrackManager : MonoBehaviour
         int randomIndex = lastPrefabIndex;
         while (randomIndex == lastPrefabIndex)
         {
-            randomIndex = Random.Range(0, theObjectPools.Length);
+            if(EasyTime>20)
+                randomIndex = Random.Range(0, theObjectPools.Length);
+            else {
+                var list = new List<int>{ 0, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+                int index = Random.Range(0, list.Count);
+                randomIndex = list[index];
+                EasyTime = EasyTime + 1;
+//                randomIndex = Random.Range(11, 19);
+            }
         }
 
         lastPrefabIndex = randomIndex;

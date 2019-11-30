@@ -8,7 +8,6 @@ using UnityEngine.Analytics;
 public class staticVars : MonoBehaviour
 {
     // Start is called before the first frame update
-
     public static float yVel = 0;
     public static float gameTime = 0;
     public static float loadingTime = 0;
@@ -46,7 +45,7 @@ public class staticVars : MonoBehaviour
             && gameStatus != "GameOver" && gameStatus != "Paused")
         { 
             doorScript.zVelPlayer += 0.05f;
-            Debug.Log("enters block");
+//            Debug.Log("enters block");
             Debug.Log(doorScript.zVelPlayer);
             speedTimer = 0;
             speedIncrements += 1;
