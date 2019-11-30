@@ -16,6 +16,8 @@ public class moveBall : MonoBehaviour
     int preSafeLane;
     public string movementBlocked;
     public Transform gameOverAnimationObject;
+    public GameObject magnetPowerUpObject;
+    public GameObject shieldPowerUpObject;
     SimpleTimer st;
 
     private bool isGrounded;
@@ -339,7 +341,10 @@ public class moveBall : MonoBehaviour
         if (other.CompareTag("Magnet"))
         {	
 			staticVars.magnetCount+=1;
-		    // when the player collides with a magnet it acquires magnet power-up
+            GameObject clone = (GameObject)Instantiate(magnetPowerUpObject, transform.position, Quaternion.identity);
+            clone.transform.SetParent(gameObject.transform);
+            Object.Destroy(clone, 15.0f);
+            // when the player collides with a magnet it acquires magnet power-up
             st = new SimpleTimer("MagnetTimer", 15.0f);
             StartCoroutine(st.MagnetPowerUp());
             // if collider is a magnet
@@ -352,9 +357,13 @@ public class moveBall : MonoBehaviour
         if (other.CompareTag("Shield"))
         {	
 			staticVars.shieldCount +=1;
+            GameObject clone =  (GameObject) Instantiate(shieldPowerUpObject, transform.position, Quaternion.identity);
+            clone.transform.SetParent(gameObject.transform);
+            Object.Destroy(clone, 15.0f);
             // when the player collides with a magnet it acquires magnet power-up
             st = new SimpleTimer("ShieldTimer", 15.0f);
             StartCoroutine(st.ShieldPowerUp());
+
             // if collider is a magnet
             //GM.shieldMode = true;
 
