@@ -7,12 +7,17 @@ public class SimpleTimer : MonoBehaviour
     //public float targetTime = 30.0f; // 60 seconds
     public float targetTime;
     public string timerName;
-
+    private GameObject tutorialManager;
 
     public SimpleTimer(string timerName = null, float targetTime = 0.0f)
     {
         this.timerName = timerName;
         this.targetTime = targetTime;
+    }
+
+    private void Start()
+    {
+        tutorialManager = GameObject.Find("TutorialManager");
     }
 
     //   public void timerStart()
@@ -51,6 +56,17 @@ public class SimpleTimer : MonoBehaviour
         yield return new WaitForSeconds(this.targetTime);
         GM.shieldMode = false;
         //Debug.Log("Ended Shield timer : " + this.timerName);
+    }
+
+    public IEnumerator DisplayTutorial()
+    {
+        //tutorialManager.GetComponent<TutorialManager>().displayTutorial = true;
+        TutorialManager.Instance.displayTutorial = true;
+        yield return new WaitForSeconds(this.targetTime);
+        TutorialManager.Instance.displayTutorial = false;
+        //tutorialManager.GetComponent<TutorialManager>().displayTutorial = false;
+        //tutorialManager.GetComponent<TutorialManager>().Instance.completedTutorial();
+        TutorialManager.Instance.completedTutorial();
     }
 
     //   void timerEnded()

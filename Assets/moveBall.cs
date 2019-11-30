@@ -31,7 +31,7 @@ public class moveBall : MonoBehaviour
     public PauseMenu pauseScreen;
     private Material yellowMat;
     private Material redMat;
-    public CoinsNeeded coinsNeeded;
+    //public CoinsNeeded coinsNeeded;
     int currRed;
     int currYellow;
     int currGreen;
@@ -84,7 +84,7 @@ public class moveBall : MonoBehaviour
         {
          //   Debug.Log("VIRALLLLLLLLLLLLLLLLL");
             coinsFlag = 0;
-            coinsNeeded.gameObject.SetActive(false);
+            //coinsNeeded.gameObject.SetActive(false);
             shownOnce = true;
         }
 
@@ -92,19 +92,19 @@ public class moveBall : MonoBehaviour
         {
             if(currRed > staticVars.redCount && (currRed - staticVars.redCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
-                coinsNeeded.gameObject.SetActive(true);
+                //coinsNeeded.gameObject.SetActive(true);
                 coinsFlag += Time.deltaTime;
             }
 
             else if (currYellow > staticVars.yellowCount && (currYellow - staticVars.yellowCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.redCount >= (currRed - 4))
             {
-                coinsNeeded.gameObject.SetActive(true);
+                //coinsNeeded.gameObject.SetActive(true);
                 coinsFlag += Time.deltaTime;
             }
 
             else if (currGreen > staticVars.greenCount && (currGreen - staticVars.greenCount <= 4) && staticVars.redCount >= (currRed - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
-                coinsNeeded.gameObject.SetActive(true);
+                //coinsNeeded.gameObject.SetActive(true);
                 coinsFlag += Time.deltaTime;
             }
         }

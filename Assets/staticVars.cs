@@ -22,6 +22,9 @@ public class staticVars : MonoBehaviour
     public int speedIncrements;  // to stop speed inc after some time
     public DeathMenu deathScreen;
     public PauseMenu pauseScreen;
+
+    public static bool doorTutorialTriggered;
+
     void Start()
     {
         redCountPos = GameObject.Find("redCount");
