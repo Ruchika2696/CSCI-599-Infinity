@@ -22,7 +22,6 @@ public class moveBall : MonoBehaviour
 
     private bool isGrounded;
     private bool groundContact;
-    private float coinsFlag;
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
@@ -73,39 +72,30 @@ public class moveBall : MonoBehaviour
         laneNum = 2;
         staticVars.paisa = false;
         groundContact = true;
-        coinsFlag = 0;
         shownOnce = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(coinsFlag > 2)
-        {
-         //   Debug.Log("VIRALLLLLLLLLLLLLLLLL");
-            coinsFlag = 0;
-            coinsNeeded.gameObject.SetActive(false);
-            shownOnce = true;
-        }
-
         if(shownOnce == false)
         {
             if(currRed > staticVars.redCount && (currRed - staticVars.redCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
                 coinsNeeded.gameObject.SetActive(true);
-                coinsFlag += Time.deltaTime;
+                StartCoroutine(coinsFlag());
             }
 
             else if (currYellow > staticVars.yellowCount && (currYellow - staticVars.yellowCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.redCount >= (currRed - 4))
             {
                 coinsNeeded.gameObject.SetActive(true);
-                coinsFlag += Time.deltaTime;
+                StartCoroutine(coinsFlag());
             }
 
             else if (currGreen > staticVars.greenCount && (currGreen - staticVars.greenCount <= 4) && staticVars.redCount >= (currRed - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
                 coinsNeeded.gameObject.SetActive(true);
-                coinsFlag += Time.deltaTime;
+                StartCoroutine(coinsFlag());
             }
         }
 
@@ -359,6 +349,14 @@ public class moveBall : MonoBehaviour
         }
     }
 
+    IEnumerator coinsFlag()
+    {
+        shownOnce = true;
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Before Coins Needed :- " + coinsNeeded.gameObject.activeSelf);
+        coinsNeeded.gameObject.SetActive(false);
+        Debug.Log("After Coins Needed :- " + coinsNeeded.gameObject.activeSelf);
+    }
 
     int max(int a, int b)
     {
