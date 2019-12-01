@@ -14166,6 +14166,7 @@ GameObject:
   - component: {fileID: 957578055}
   - component: {fileID: 957578054}
   - component: {fileID: 957578049}
+  - component: {fileID: 957578050}
   m_Layer: 0
   m_Name: coinR_score
   m_TagString: Coin
@@ -14203,6 +14204,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &957578050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957578047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05da58833038f430b9ffc96abd951c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &957578054
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14220,7 +14233,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5a7d870a5f25346a68a3abc59365e5dc, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15096,6 +15109,7 @@ GameObject:
   - component: {fileID: 1071705098}
   - component: {fileID: 1071705097}
   - component: {fileID: 1071705092}
+  - component: {fileID: 1071705093}
   m_Layer: 0
   m_Name: coinY_score
   m_TagString: Coin
@@ -15133,6 +15147,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1071705093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071705090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bcb155c124c641a49ba222e79fdd854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1071705097
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15150,7 +15176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2445c2bf08c6747c89cc9b61d42e5a64, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26198,6 +26224,7 @@ GameObject:
   - component: {fileID: 1786802236}
   - component: {fileID: 1786802235}
   - component: {fileID: 1786802230}
+  - component: {fileID: 1786802231}
   m_Layer: 0
   m_Name: coinG_score
   m_TagString: Coin
@@ -26221,6 +26248,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1786802231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786802229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5323a7f74218149fd910d29e9692812d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1786802235
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26238,7 +26277,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1caf9d19f5cc542fcb54b1592d03c264, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
