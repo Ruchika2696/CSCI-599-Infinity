@@ -31,7 +31,7 @@ public class moveBall : MonoBehaviour
     public PauseMenu pauseScreen;
     private Material yellowMat;
     private Material redMat;
-    //public CoinsNeeded coinsNeeded;
+    public CoinsNeeded coinsNeeded;
     int currRed;
     int currYellow;
     int currGreen;
@@ -56,9 +56,9 @@ public class moveBall : MonoBehaviour
         staticVars.redCount = 0;
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
-        currRed = 1;
-        currYellow = 1;
-        currGreen = 1;
+        currRed = 10;
+        currYellow = 10;
+        currGreen = 10;
         staticVars.score = 0;
 		staticVars.magnetCount = 0;
 		staticVars.shieldCount = 0;
@@ -84,7 +84,7 @@ public class moveBall : MonoBehaviour
         {
          //   Debug.Log("VIRALLLLLLLLLLLLLLLLL");
             coinsFlag = 0;
-            //coinsNeeded.gameObject.SetActive(false);
+            coinsNeeded.gameObject.SetActive(false);
             shownOnce = true;
         }
 
@@ -92,25 +92,26 @@ public class moveBall : MonoBehaviour
         {
             if(currRed > staticVars.redCount && (currRed - staticVars.redCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
-                //coinsNeeded.gameObject.SetActive(true);
+                coinsNeeded.gameObject.SetActive(true);
                 coinsFlag += Time.deltaTime;
             }
 
             else if (currYellow > staticVars.yellowCount && (currYellow - staticVars.yellowCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.redCount >= (currRed - 4))
             {
-                //coinsNeeded.gameObject.SetActive(true);
+                coinsNeeded.gameObject.SetActive(true);
                 coinsFlag += Time.deltaTime;
             }
 
             else if (currGreen > staticVars.greenCount && (currGreen - staticVars.greenCount <= 4) && staticVars.redCount >= (currRed - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
-                //coinsNeeded.gameObject.SetActive(true);
+                coinsNeeded.gameObject.SetActive(true);
                 coinsFlag += Time.deltaTime;
             }
         }
 
         if (flag)
         {
+        //    Debug.Log("UPDATE SPHERE :- " + gameObject.activeSelf);
             gameTime = 0;
             float z = gameObject.transform.position.z;
 
@@ -136,7 +137,10 @@ public class moveBall : MonoBehaviour
                 gameObject.transform.position = new Vector3(3f, 1.14f, safeZ);
             }
             laneNum = safeLane;
+            Vector3 changeCam = new Vector3(0.8f, 3.7f, (safeZ - 8f));
+            GameObject.Find("Main Camera").transform.position = changeCam;
             flag = false;
+
         }
         //    Debug.Log("in update"+gameObject.transform.position);
         gameTime += Time.deltaTime;
@@ -518,6 +522,7 @@ public class moveBall : MonoBehaviour
             staticVars.paisa = false;
             doorScript.zVelPlayer = safeZVelPlayer;
             gameObject.SetActive(true);
+          //  Debug.Log("RESET SPHERE :- " + gameObject.activeSelf);
             horVel = 0;
             movementBlocked = "NO";
             // Vector3 newPos = new Vector3(0, 0, 2);

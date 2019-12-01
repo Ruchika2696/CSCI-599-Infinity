@@ -13820,6 +13820,7 @@ MonoBehaviour:
   doortimer: 0
   magnettimer: 0
   shieldtimer: 0
+  EasyTime: 0
   theObjectPools:
   - {fileID: 1838512092}
   - {fileID: 988088717}
