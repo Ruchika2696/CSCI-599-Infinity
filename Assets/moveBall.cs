@@ -566,6 +566,7 @@ public class moveBall : MonoBehaviour
         if(staticVars.redCount >= currRed && staticVars.greenCount >= currGreen && staticVars.yellowCount >= currYellow)
        //   if(true)
         {
+            jumpFlag = true;
             shownOnce = false;
             currRed += 2;
             currYellow += 2;
