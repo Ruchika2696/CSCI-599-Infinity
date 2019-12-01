@@ -11,7 +11,7 @@ public class CoinActionsMagnet : MonoBehaviour
     public bool looseMagnet = true;
     // magnetic force strength based on distance of coin from magnet
     public float distanceStrength = 10f;
-    public float magnetTriggerDistance = 15.0f;
+    public float magnetTriggerDistance = 17.0f;
 
     private Transform trans;
     private Rigidbody thisRd;

@@ -14,6 +14,7 @@ public class coinP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GM.acquireMagnet == true)
+            gameObject.GetComponent<CapsuleCollider>().radius = 2.0f;
     }
 }
