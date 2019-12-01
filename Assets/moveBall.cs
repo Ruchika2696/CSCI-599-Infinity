@@ -185,19 +185,6 @@ public class moveBall : MonoBehaviour
  
 	    }
 
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            // Insert Code Here (I.E. Load Scene, Etc)
-            // OR Application.Quit();
-            if (doorScript.zVelPlayer > 0)
-                safeZVelPlayer = doorScript.zVelPlayer;
-            doorScript.zVelPlayer = 0.0f;
-            pauseScreen.gameObject.SetActive(true);
-            jumpFlag = false;
-            staticVars.gameStatus = "Paused";
-            movementBlocked = "YES";
-        }
-
         if (Input.GetKeyDown(moveLeft) && (laneNum > 1) && (movementBlocked == "NO"))
         {	
 			//Dictionary<string, object> data = new Dictionary<string, object>();
