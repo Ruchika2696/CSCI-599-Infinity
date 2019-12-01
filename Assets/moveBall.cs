@@ -107,7 +107,7 @@ public class moveBall : MonoBehaviour
             gameTime = 0;
             float z = gameObject.transform.position.z;
 
-            if (Mathf.Abs(z - safeZ) < 2f)
+            if (Mathf.Abs(z - safeZ) < 9f)
             {
                 safeLane = preSafeLane;
                 safeZ = preSafeZ;
@@ -136,7 +136,7 @@ public class moveBall : MonoBehaviour
         }
         //    Debug.Log("in update"+gameObject.transform.position);
         gameTime += Time.deltaTime;
-        if (gameTime > 4)
+        if (gameTime > 2)
         {
             preSafeZ = safeZ;
             preSafeLane = safeLane;
@@ -234,8 +234,8 @@ public class moveBall : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-
-            StartCoroutine(Jump());
+            if (groundContact && jumpFlag)
+                StartCoroutine(Jump());
 
         }
 
@@ -258,7 +258,8 @@ public class moveBall : MonoBehaviour
             //swipe upwards
             if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
             {
-                StartCoroutine(Jump());
+                if (groundContact && jumpFlag)
+                    StartCoroutine(Jump());
             }
             //swipe down
             if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
@@ -314,7 +315,8 @@ public class moveBall : MonoBehaviour
                 if (currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
                 {
                     //groundContact = true;
-                    StartCoroutine(Jump());
+                    if (groundContact && jumpFlag)
+                        StartCoroutine(Jump());
                 }
 
                 //swipe down
@@ -374,6 +376,7 @@ public class moveBall : MonoBehaviour
             Debug.Log("hit space");
 			 groundContact = false;
             Vector3 up = new Vector3(0, 1.5f, 0);
+            Debug.Log("HUAAAAAAAA");
             gameObject.transform.position += up;
            
             yield return new WaitForSeconds(.6f);
