@@ -246,6 +246,58 @@ public class moveBall : MonoBehaviour
 
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            //save began touch 2d point
+            firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            //save ended touch 2d point
+            secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+            //create vector from the two points
+            currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+
+            //normalize the 2d vector
+            currentSwipe.Normalize();
+
+            //swipe upwards
+            if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+            {
+                StartCoroutine(Jump());
+            }
+            //swipe down
+            if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+            {
+                //Swipe down
+            }
+            //swipe left
+            if (currentSwipe.x < 0 && currentSwipe.y > -0.5f &&  currentSwipe.y < 0.5f)
+            {
+                //             GoLeft();
+                if ((laneNum > 1) && (movementBlocked == "NO"))
+                {
+
+                    horVel = -10;
+                    StartCoroutine(stopSlide());
+                    laneNum -= 1;
+                    movementBlocked = "YES";
+                }
+            }
+            //swipe right
+            if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
+            {
+                if ((laneNum < 3) && (movementBlocked == "NO"))
+                {
+                    horVel = 10;
+                    StartCoroutine(stopSlide());
+                    laneNum += 1;
+                    movementBlocked = "YES";
+                }
+            }
+        }
+
         if (Input.touches.Length > 0)
         {
             Touch t = Input.GetTouch(0);
