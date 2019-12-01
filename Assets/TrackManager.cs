@@ -36,10 +36,12 @@ public class TrackManager : MonoBehaviour
         {
             if (playerTransform.position.z - safeZone > (spawnZ - tracksOnScreen * trackLength))
             {
-                if(doortimer > 0.2f) //generate door prefab for every 0.3f
+                if (doortimer > 0.2f) //generate door prefab for every 0.3f
                 {
+                    for (int i = 0; i < 4; i++)
+                        SpawnTrack(0);
                     SpawnTrack(1);
-                        for(int i=0; i<2; i++)
+                        for(int i=0; i<6; i++)
                             SpawnTrack(0);
                     doortimer = 0.0f;
                 }
@@ -47,8 +49,9 @@ public class TrackManager : MonoBehaviour
 
                 if (magnettimer > 0.7f) //generate magnet prefab for every 0.3f
                 {
-                   
-                    int magnetPrefabIndex = FindRandomPrefabIndexForMagnet();
+                   int magnetPrefabIndex = FindRandomPrefabIndexForMagnet();
+                    for (int i = 0; i < 2; i++)
+                        SpawnTrack(0);
                     SpawnTrack(magnetPrefabIndex);
                     for (int i = 0; i < 2; i++)
                         SpawnTrack(0);
@@ -59,11 +62,12 @@ public class TrackManager : MonoBehaviour
                 if (shieldtimer > 0.8f) //generate shield prefab for every 0.3f
                 {
                     int shieldPrefabIndex = FindRandomPrefabIndexForShield();
+                    for (int i = 0; i < 2; i++)
+                        SpawnTrack(0);
                     SpawnTrack(shieldPrefabIndex);
                     for (int i = 0; i < 2; i++)
                         SpawnTrack(0);
                     shieldtimer = 0.0f;
-
                 }
                 shieldtimer += Time.deltaTime;
 

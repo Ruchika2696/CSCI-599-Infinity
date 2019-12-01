@@ -31,9 +31,12 @@ public class staticVars : MonoBehaviour
         yellowCountPos = GameObject.Find("yellowCount");
         greenCountPos = GameObject.Find("greenCount");
         scorePos = GameObject.Find("Score");
-        if(deathScreen.gameObject.activeSelf == true)
+        if(deathScreen != null && deathScreen.gameObject != null)
         {
-            timer = GameObject.Find("Timer");
+            if (deathScreen.gameObject.activeSelf == true)
+            {
+                timer = GameObject.Find("Timer");
+            }
         }
     }
 
