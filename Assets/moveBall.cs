@@ -363,7 +363,7 @@ public class moveBall : MonoBehaviour
 			staticVars.shieldCount +=1;
             GameObject clone =  (GameObject) Instantiate(shieldPowerUpObject, transform.position, Quaternion.identity);
             clone.transform.SetParent(gameObject.transform);
-            Object.Destroy(clone, 15.0f);
+            Object.Destroy(clone, 16.0f);
             // when the player collides with a magnet it acquires magnet power-up
             st = new SimpleTimer("ShieldTimer", 15.0f);
             StartCoroutine(st.ShieldPowerUp());
