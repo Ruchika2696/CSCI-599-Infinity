@@ -46,13 +46,10 @@ public class staticVars : MonoBehaviour
         gameTime += Time.deltaTime;
         if(gameStatus != "GameOver" && gameStatus != "Paused")
             speedTimer += 1;
-      //  Debug.Log(speedTimer);
         if(speedTimer > 400 && speedIncrements < 5
             && gameStatus != "GameOver" && gameStatus != "Paused")
         { 
             doorScript.zVelPlayer += 0.05f;
-//            Debug.Log("enters block");
-            Debug.Log(doorScript.zVelPlayer);
             speedTimer = 0;
             speedIncrements += 1;
         }
@@ -72,7 +69,6 @@ public class staticVars : MonoBehaviour
                });
 			
             timer = GameObject.Find("Timer");
-       //     Debug.Log(timer);
             int cur = (int)(10 - loadingTime);
             if (timer)
             {

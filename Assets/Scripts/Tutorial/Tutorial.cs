@@ -12,7 +12,6 @@ public class Tutorial : MonoBehaviour
 
 	public virtual void Start()
 	{
-		Debug.Log("added this tutorial to tutorial manager tutorials list!!!");
 		TutorialManager.Instance.tutorials.Add(this);
 	}
 
