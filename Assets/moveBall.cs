@@ -32,6 +32,7 @@ public class moveBall : MonoBehaviour
     private Material redMat;
     public CoinsNeeded coinsNeeded;
     int currRed;
+    private bool jumpFlag;
     int currYellow;
     int currGreen;
     private Material greenMat;
@@ -59,6 +60,7 @@ public class moveBall : MonoBehaviour
         currYellow = 10;
         currGreen = 10;
         staticVars.score = 0;
+        jumpFlag = true;
 		staticVars.magnetCount = 0;
 		staticVars.shieldCount = 0;
         safeZ = 0.78f;
@@ -176,11 +178,25 @@ public class moveBall : MonoBehaviour
                     safeZVelPlayer = doorScript.zVelPlayer;
                 doorScript.zVelPlayer = 0.0f;
                 pauseScreen.gameObject.SetActive(true);
+                jumpFlag = false;
                 staticVars.gameStatus = "Paused"; 
                 movementBlocked = "YES";
             }
  
 	    }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            // Insert Code Here (I.E. Load Scene, Etc)
+            // OR Application.Quit();
+            if (doorScript.zVelPlayer > 0)
+                safeZVelPlayer = doorScript.zVelPlayer;
+            doorScript.zVelPlayer = 0.0f;
+            pauseScreen.gameObject.SetActive(true);
+            jumpFlag = false;
+            staticVars.gameStatus = "Paused";
+            movementBlocked = "YES";
+        }
 
         if (Input.GetKeyDown(moveLeft) && (laneNum > 1) && (movementBlocked == "NO"))
         {	
@@ -366,7 +382,7 @@ public class moveBall : MonoBehaviour
     IEnumerator Jump()
     {
 
-        if (groundContact)
+        if (groundContact && jumpFlag)
         {
             Debug.Log("hit space");
 			 groundContact = false;
@@ -647,6 +663,7 @@ public class moveBall : MonoBehaviour
         Debug.Log("SAFE Z VELOCITY :- " + safeZVelPlayer);
         doorScript.zVelPlayer = safeZVelPlayer;
         movementBlocked = "NO";
+        jumpFlag = true;
     }
 
     public void Quit()
