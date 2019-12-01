@@ -190,7 +190,7 @@ public class moveBall : MonoBehaviour
 			//Dictionary<string, object> data = new Dictionary<string, object>();
 			//data.Add("test1", "hello");
 			//Analytics.CustomEvent("test", data);
-            horVel = -10;
+            horVel = -25;
             StartCoroutine(stopSlide());
             laneNum -= 1;
             movementBlocked = "YES";
@@ -198,7 +198,7 @@ public class moveBall : MonoBehaviour
         }
         if (Input.GetKeyDown(moveRight) && (laneNum < 3) && (movementBlocked == "NO"))
         {
-            horVel = 10;
+            horVel = 25;
             StartCoroutine(stopSlide());
             laneNum += 1;
             movementBlocked = "YES";
@@ -273,7 +273,7 @@ public class moveBall : MonoBehaviour
                 if ((laneNum > 1) && (movementBlocked == "NO"))
                 {
 
-                    horVel = -10;
+                    horVel = -25;
                     StartCoroutine(stopSlide());
                     laneNum -= 1;
                     movementBlocked = "YES";
@@ -284,7 +284,7 @@ public class moveBall : MonoBehaviour
             {
                 if ((laneNum < 3) && (movementBlocked == "NO"))
                 {
-                    horVel = 10;
+                    horVel = 25;
                     StartCoroutine(stopSlide());
                     laneNum += 1;
                     movementBlocked = "YES";
@@ -331,7 +331,7 @@ public class moveBall : MonoBehaviour
                     if ((laneNum > 1) && (movementBlocked == "NO"))
                     {
 
-                        horVel = -10;
+                        horVel = -25;
                         StartCoroutine(stopSlide());
                         laneNum -= 1;
                         movementBlocked = "YES";
@@ -343,7 +343,7 @@ public class moveBall : MonoBehaviour
                 {
                     if ((laneNum < 3) && (movementBlocked == "NO"))
                     {
-                        horVel = 10;
+                        horVel = 25;
                         StartCoroutine(stopSlide());
                         laneNum += 1;
                         movementBlocked = "YES";
@@ -555,7 +555,7 @@ public class moveBall : MonoBehaviour
 
     IEnumerator stopSlide()
     {
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.1f);
         horVel = 0;
         movementBlocked = "NO";
     }
