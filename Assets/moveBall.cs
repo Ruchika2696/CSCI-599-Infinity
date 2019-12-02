@@ -82,16 +82,23 @@ public class moveBall : MonoBehaviour
     void Update()
     {
         camTime += Time.deltaTime;
-        if(camTime > 5)
+        if (camTime > 5)
         {
-            if(Mathf.Abs(gameObject.transform.position.z - GameObject.Find("Main Camera").transform.position.z) < 6f)
+            float camera_position_x = GameObject.Find("Main Camera").transform.position.x;
+            float camera_position_y = GameObject.Find("Main Camera").transform.position.y;
+            float camera_position_z = GameObject.Find("Main Camera").transform.position.z;
+
+            float player_position_z = gameObject.transform.position.z;
+
+            if ((Mathf.Abs(player_position_z - camera_position_z) < 6f)
+                || (Mathf.Abs(player_position_z - camera_position_z) > 8f))
             {
-                Vector3 changeCam = new Vector3(0.8f, 3.7f, (gameObject.transform.position.z - 8f));
+                Vector3 changeCam = new Vector3(camera_position_x, camera_position_y, (player_position_z - 8f));
                 GameObject.Find("Main Camera").transform.position = changeCam;
             }
             camTime = 0;
         }
-        if(shownOnce == false)
+        if (shownOnce == false)
         {
             if(currRed > staticVars.redCount && (currRed - staticVars.redCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.yellowCount >= (currYellow - 4))
             {
@@ -383,20 +390,21 @@ public class moveBall : MonoBehaviour
 
     IEnumerator Jump()
     {
-
         if (groundContact && jumpFlag)
         {
-            Debug.Log("hit space");
-			 groundContact = false;
-            Vector3 up = new Vector3(0, 1.5f, 0);
-          //  Debug.Log("HUAAAAAAAA");
-            gameObject.transform.position += up;
-           
+            groundContact = false;
+            float x = gameObject.transform.position.x;
+            float z = gameObject.transform.position.z;
+
+            Vector3 up = new Vector3(x, 3.75f, z);
+            gameObject.transform.position = up;
             yield return new WaitForSeconds(.6f);
-            gameObject.transform.position -= up;
+            x = gameObject.transform.position.x;
+            z = gameObject.transform.position.z;
+            up = new Vector3(x, 1.14f, z + 0.2f);
+            gameObject.transform.position = up;
             groundContact = true;
         }
-
     }
 
     private void CoinScoreCalculator(Collider other)
