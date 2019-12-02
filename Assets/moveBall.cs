@@ -154,7 +154,7 @@ public class moveBall : MonoBehaviour
         }
         //    Debug.Log("in update"+gameObject.transform.position);
         gameTime += Time.deltaTime;
-        if (gameTime > 2)
+        if (gameTime > 2 && groundContact == true)
         {
             preSafeZ = safeZ;
             preSafeLane = safeLane;

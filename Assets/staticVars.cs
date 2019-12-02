@@ -46,9 +46,9 @@ public class staticVars : MonoBehaviour
         gameTime += Time.deltaTime;
         if(gameStatus != "GameOver" && gameStatus != "Paused")
             speedTimer += 1;
-        if(speedTimer > 400 && speedIncrements < 5
+        if(speedTimer > 300 && speedIncrements < 5
             && gameStatus != "GameOver" && gameStatus != "Paused")
-        { 
+        {
             doorScript.zVelPlayer += 0.05f;
             speedTimer = 0;
             speedIncrements += 1;
