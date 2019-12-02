@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrackManager : MonoBehaviour
 {
 //    public GameObject[] trackPrefabs;
-    private float spawnZ = 25.1f;
+    private float spawnZ = 100.0f; //25.1f;
     private float trackLength = 2.0f;
     private Transform playerTransform;
     private float safeZone = 18f;
