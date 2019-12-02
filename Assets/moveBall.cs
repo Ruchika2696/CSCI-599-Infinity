@@ -40,6 +40,7 @@ public class moveBall : MonoBehaviour
     float preSafeZ;
     float camTime;
     float gameTime;
+    float gameTime1;
     private bool shownOnce;
     GameObject timer;
 
@@ -71,6 +72,7 @@ public class moveBall : MonoBehaviour
         flag = false;
         movementBlocked = "NO";
         gameTime = 0;
+        gameTime1 = 0;
         laneNum = 2;
         staticVars.paisa = false;
         groundContact = true;
@@ -154,21 +156,18 @@ public class moveBall : MonoBehaviour
         }
         //    Debug.Log("in update"+gameObject.transform.position);
         gameTime += Time.deltaTime;
-        if (gameTime > 2 && groundContact == true)
+        gameTime1 += Time.deltaTime;
+        if(gameTime1 > 1 && groundContact == true)
         {
-            preSafeZ = safeZ;
-            preSafeLane = safeLane;
-            safeZ = gameObject.transform.position.z;
-            safeLane = laneNum;
-            gameTime = 0;
-            if(movementBlocked == "NO")
+            gameTime1 = 0;
+            if (movementBlocked == "NO")
             {
-                if(laneNum == 1)
+                if (laneNum == 1)
                 {
                     gameObject.transform.position = new Vector3(-2f, 1.14f, gameObject.transform.position.z);
                 }
 
-                else if(laneNum == 2)
+                else if (laneNum == 2)
                 {
                     gameObject.transform.position = new Vector3(0.5f, 1.14f, gameObject.transform.position.z);
                 }
@@ -178,6 +177,14 @@ public class moveBall : MonoBehaviour
                     gameObject.transform.position = new Vector3(3f, 1.14f, gameObject.transform.position.z);
                 }
             }
+        }
+        if (gameTime > 2)
+        {
+            preSafeZ = safeZ;
+            preSafeLane = safeLane;
+            safeZ = gameObject.transform.position.z;
+            safeLane = laneNum;
+            gameTime = 0;
         }
         if(pauseScreen.gameObject.activeSelf != true)
             staticVars.score++;
