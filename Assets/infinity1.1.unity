@@ -466,6 +466,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 8524645727280500620, guid: 526f79153e860fe47b62ec0771912f20,
+        type: 3}
+      propertyPath: m_Name
+      value: ResumeCoins
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 526f79153e860fe47b62ec0771912f20, type: 3}
@@ -32950,7 +32955,7 @@ GameObject:
   - component: {fileID: 1788967769}
   - component: {fileID: 1788967768}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ResumeCoins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

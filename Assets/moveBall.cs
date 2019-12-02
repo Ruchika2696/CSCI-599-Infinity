@@ -20,6 +20,7 @@ public class moveBall : MonoBehaviour
     public GameObject shieldPowerUpObject;
     SimpleTimer st;
 
+    GameObject resumeCoins;
     private bool isGrounded;
     private bool groundContact;
     Vector2 firstPressPos;
@@ -54,6 +55,13 @@ public class moveBall : MonoBehaviour
         greenMat = Resources.Load("rightDoor", typeof(Material)) as Material;
 
         //gameObject.GetComponent<Renderer>().material = yellowMat;
+        if (deathScreen != null && deathScreen.gameObject != null)
+        {
+            if (deathScreen.gameObject.activeSelf == true)
+            {
+                resumeCoins = GameObject.Find("ResumeCoins");
+            }
+        }
         staticVars.redCount = 0;
         staticVars.greenCount = 0;
         staticVars.yellowCount = 0;
@@ -472,6 +480,8 @@ public class moveBall : MonoBehaviour
                 {
                     staticVars.paisa = true;
                     deathScreen.gameObject.SetActive(true);
+                    resumeCoins = GameObject.Find("ResumeCoins");
+                    resumeCoins.GetComponent<TextMeshProUGUI>().text = "YOU DIED! USE " + currGreen.ToString() + " COINS EACH TO REVIVE ?";
                 }
                 gameObject.SetActive(false);
 
@@ -522,6 +532,8 @@ public class moveBall : MonoBehaviour
             {
                 staticVars.paisa = true;
                 deathScreen.gameObject.SetActive(true);
+                resumeCoins = GameObject.Find("ResumeCoins");
+                resumeCoins.GetComponent<TextMeshProUGUI>().text = "YOU DIED! USE " + currGreen.ToString() + " COINS EACH TO REVIVE ?";
             }
             if (doorScript.zVelPlayer > 0)
                 safeZVelPlayer = doorScript.zVelPlayer;
@@ -596,10 +608,7 @@ public class moveBall : MonoBehaviour
         {
             jumpFlag = true;
             shownOnce = false;
-            currRed += 2;
-            currYellow += 2;
             groundContact = true;
-            currGreen += 2;
             //     movementBlocked = "YES";
             GM.acquireMagnet = false;
             deathScreen.gameObject.SetActive(false);
@@ -657,6 +666,9 @@ public class moveBall : MonoBehaviour
             staticVars.redCount = max(0, staticVars.redCount - currRed);
             staticVars.greenCount = max(0, staticVars.greenCount - currGreen);
             staticVars.yellowCount = max(0, staticVars.yellowCount - currYellow);
+            currRed += 2;
+            currYellow += 2;
+            currGreen += 2;
             Vector3 changeCam = new Vector3(0.8f, 3.7f, (safeZ - 8f));
             // Debug.Log(newPos + changeCam);
             GameObject.Find("Main Camera").transform.position = changeCam;
