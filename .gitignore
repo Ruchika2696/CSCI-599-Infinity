@@ -48,6 +48,7 @@ ExportedObj/
 *.pdb.meta
 *.mdb.meta
 Assets/Scripts/Tutorial.meta
+Assets/GameAnalytics/Plugins/Prefabs.meta
 
 # Unity3D generated file on crash reports
 sysinfo.txt
