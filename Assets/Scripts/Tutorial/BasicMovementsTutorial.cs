@@ -23,7 +23,7 @@ public class BasicMovementsTutorial : Tutorial
 
 	public override void checkIfHappening()
 	{
-	    if(player_trans.position.z > 15)
+	    if(player_trans.position.z > 8)
 		{
 			TutorialManager.Instance.completedTutorial();
 		}

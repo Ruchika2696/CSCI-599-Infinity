@@ -82,7 +82,7 @@ public class TutorialManager : MonoBehaviour
 
     public void completedAllTutorials()
 	{
-		explanationText.text = "Completed all the tutorials.";
+		explanationText.text = "";
 	}
 
     public Tutorial getTutorialByOrder(int order)

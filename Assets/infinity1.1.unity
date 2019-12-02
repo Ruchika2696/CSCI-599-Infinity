@@ -14599,6 +14599,11 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.9056604
       objectReference: {fileID: 0}
+    - target: {fileID: 3950401756827511997, guid: 88a963ded816a405eb1eec6c8f1e723d,
+        type: 3}
+      propertyPath: explanation
+      value: Pick the door to change your color :)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88a963ded816a405eb1eec6c8f1e723d, type: 3}
 --- !u!1 &696258421

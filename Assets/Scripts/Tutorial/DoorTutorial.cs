@@ -8,7 +8,7 @@ public class DoorTutorial : Tutorial
 	public override void Start()
 	{
 		base.Start();
-		displayTutorialTimer = 5.0f;
+		displayTutorialTimer = 2.0f;
 	}
 
 	public override void checkIfHappening()
