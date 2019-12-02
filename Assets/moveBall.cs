@@ -38,7 +38,7 @@ public class moveBall : MonoBehaviour
     private Material greenMat;
     float safeZ;
     float preSafeZ;
-
+    float camTime;
     float gameTime;
     private bool shownOnce;
     GameObject timer;
@@ -75,11 +75,22 @@ public class moveBall : MonoBehaviour
         staticVars.paisa = false;
         groundContact = true;
         shownOnce = false;
+        camTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        camTime += Time.deltaTime;
+        if(camTime > 5)
+        {
+            if(Mathf.Abs(gameObject.transform.position.z - GameObject.Find("Main Camera").transform.position.z) < 6f)
+            {
+                Vector3 changeCam = new Vector3(0.8f, 3.7f, (gameObject.transform.position.z - 8f));
+                GameObject.Find("Main Camera").transform.position = changeCam;
+            }
+            camTime = 0;
+        }
         if(shownOnce == false)
         {
             if(currRed > staticVars.redCount && (currRed - staticVars.redCount <= 4) && staticVars.greenCount >= (currGreen - 4) && staticVars.yellowCount >= (currYellow - 4))
@@ -234,6 +245,8 @@ public class moveBall : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
+         //   Debug.Log("JUMP FLAG ? :- " + jumpFlag);
+         //   Debug.Log("GROUND CONTACT :- " + groundContact);
             if (groundContact && jumpFlag)
                 StartCoroutine(Jump());
 
@@ -376,7 +389,7 @@ public class moveBall : MonoBehaviour
             Debug.Log("hit space");
 			 groundContact = false;
             Vector3 up = new Vector3(0, 1.5f, 0);
-            Debug.Log("HUAAAAAAAA");
+          //  Debug.Log("HUAAAAAAAA");
             gameObject.transform.position += up;
            
             yield return new WaitForSeconds(.6f);
@@ -570,6 +583,7 @@ public class moveBall : MonoBehaviour
             shownOnce = false;
             currRed += 2;
             currYellow += 2;
+            groundContact = true;
             currGreen += 2;
             //     movementBlocked = "YES";
             GM.acquireMagnet = false;
@@ -654,6 +668,7 @@ public class moveBall : MonoBehaviour
         Debug.Log("SAFE Z VELOCITY :- " + safeZVelPlayer);
         doorScript.zVelPlayer = safeZVelPlayer;
         movementBlocked = "NO";
+        groundContact = true;
         jumpFlag = true;
     }
 
